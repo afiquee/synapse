@@ -21,18 +21,9 @@
 
 
     <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
-
-
-
-
-
-    
-
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    
-
-
+    <script src="https://kit.fontawesome.com/d45262bf36.js" crossorigin="anonymous"></script>
 
 </head>
 
@@ -50,8 +41,11 @@
                     <a href="{{ route('user') }}">{{ __('User') }}</a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('addOrder') }}">{{ __('Order') }}</a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                        document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
                     </a>
                 </li>
@@ -71,7 +65,7 @@
             </div>
             <div class="container">
                 @yield('content')
-                
+
             </div>
         </div>
 </body>

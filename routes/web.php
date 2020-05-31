@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,5 +20,22 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// user 
 Route::get('/user', 'UserController@index')->name('user');
+Route::post('/registerUser', 'UserController@register');
+Route::post('/loignUser', 'UserController@login')->name('loginUser');
+Route::get('/viewAll', 'UserController@viewAll')->name('viewAll');
+
+
+//order
+Route::get('/order', 'OrderController@index')->name('order');
+Route::get('/addOrder', 'OrderController@addOrder')->name('addOrder');
+
+//customer
+Route::post('/getCustomerByPhone', 'CustomerController@getCustomerByPhone')->name('getCustomerByPhone');
+
+
+
+
+Route::get('/home', 'HomeController@index')->name('home');
+
