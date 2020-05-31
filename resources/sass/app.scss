@@ -1,4 +1,5 @@
 @import "variables";
+@import "datatable";
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
@@ -26,17 +27,6 @@ html {
     margin: 0;
     padding: 0;
 
-    ::-webkit-scrollbar {
-        width: 0.25rem;
-    }
-    
-    ::-webkit-scrollbar-track {
-        background: black;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: #6649b8;
-    }
     
   }
 
@@ -59,7 +49,8 @@ html {
     height: 3rem;
     display: flex;
     align-items: center;
-    background: linear-gradient(#444444, #333333);
+    background: $bg-primary;
+    box-shadow:4px 7px 10px rgba(0,0,0,.4);
     color: #bbbbbb;
   }
   
@@ -72,18 +63,61 @@ html {
     height: calc( 100vh);
     /* calculate the height. Header is 30px */
   }
-  
-  .sideBar {
-    @media only screen and (max-width: 700px) {
-      display:none;
+
+  .sidebar-active {
+    transform: translateX(-$sidebar-width);
+
+    .page >.content {
+      transform: translateX(-$sidebar-width);
     }
+  }
+
+    @media only screen and (max-width: 768px) {
+
+      .sidebar {
+        transform: translateX(-$sidebar-width);
+      }
+      
+      .sidebar-active {
+        transform: translateX(0);
+      }
+    }
+
+  .flex-close {
+    display:flex;
+    flex-direction:row-reverse;
+  }
+
+  .sidebar-close {
+    margin: .5rem;
+    cursor: pointer;
+    @media only screen and (min-width: 768px) {
+      display: none;
+    }
+  }
+  
+  .sidebar {
     position: fixed;
-    height:100vh;
+    transition: .3s;
+    height:100%;
     width: $sidebar-width;
     background: $bg-primary;
     color:white;
     z-index: 1;
     box-shadow:4px 7px 10px rgba(0,0,0,.4);
+  }
+
+  .sidebar-menu {
+    font-size: 1.5rem;
+    padding-left: 1rem;
+    color: white;
+  }
+
+  .sidebar-toggle {
+    @media only screen and (min-width: 768px) {
+      display: none;
+    }
+    cursor: pointer;
   }
 
   .nav-list {
@@ -110,9 +144,10 @@ html {
 }
   
   .content {
-    @media only screen and (min-width: 700px) {
-      padding-left: $sidebar-width;
+    @media only screen and (max-width: 768px) {
+      padding-left: 0rem;
     }
+    padding-left: $sidebar-width;
     background: whitesmoke;
     flex: 1 0 auto;
     /* enable grow, disable shrink */
@@ -120,23 +155,28 @@ html {
 
   // Flexbox container
   .containers {
+    padding-top:5%;
     display: flex;
     flex-wrap: wrap;
+    flex: 1 1 auto;
     justify-content: center;
-    padding: 6%;
+    
   }
 
   
   // cards UI
   
   .cards {
-    @media only screen and (min-width: 700px) {
-      min-width: 500px;
+    @media only screen and (min-width: 1024px) {
+      width: 80vw;
     }
+    @media only screen and (min-width: 768px) {
+      width: 65vw;
+    }
+    width: 90vw;
     color: $text-primary;
-    display: flex;
+    display: flexbox;
     background-color: $white;
-    min-width: 340px;
     flex-direction: column;
     border-radius: $border-rounded;
     box-shadow: 0 10px 40px -14px rgba(0,0,0,0.25);
@@ -154,6 +194,10 @@ html {
         display: flex;
         flex-wrap: wrap;
         flex-direction: column;
+    }
+
+    .table-content {
+      padding:0;
     }
     .cards-title {
         color: $blue;
@@ -231,12 +275,18 @@ html {
   .rows {
     padding: 10px;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-between;
 
-    @media only screen and (max-width: 700px) {
+    @media only screen and (max-width: 768px) {
       flex-direction: column;
-      align-items: center;
+    }
+  }
+
+  .cb-rows {
+    @media only screen and (max-width: 768px) {
+      flex-direction: rows;
     }
   }
 
@@ -249,20 +299,15 @@ html {
     margin: 5px;
     flex: 1;
     flex-direction: column;
-    @media only screen and (max-width: 700px) {
-      padding-right: 0;
+    @media only screen and (max-width: 768px) {
     }
   }
 
-  .cols3 {
-    width: 10rem;
+  .cb-cols {
+    display: flex;
+    flex-direction: rows;
   }
-  .cols4 {
-    width: 15rem;
-  }
-  .cols5 {
-    width: 20rem;
-  }
+
 
   .input-label {
     text-align: left;
@@ -325,6 +370,11 @@ html {
       box-shadow: 0 8px 10px rgba(0, 188, 122,.11), 0 1px 3px rgba(72, 214, 145,.08);
     }
   }
+
+  .input-checkbox {
+    margin-top:5px;
+  }
+
 
   .is-invalid {
     border: 1px solid $red-one;
@@ -433,43 +483,6 @@ html {
 }
 
 
-.cards {
-  @media only screen and (min-width: 700px) {
-    min-width: 800px;
-  }
-  color: $text-primary;
-  display: flex;
-  background-color: $white;
-  min-width: 340px;
-  flex-direction: column;
-  border-radius: $border-rounded;
-  box-shadow: 0 10px 40px -14px rgba(0,0,0,0.25);
-  text-align: center;
-
-  .cards-header {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      border-bottom: 1px solid #dddddd;
-  }
-
-  .cards-content {
-      padding: 1rem;
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-  }
-  
-}
-
-.cards-sm {
-  min-width: 500px;
-}
-
-.cards-lg {
-  min-width: 60vw;
-}
-
 
 .modals {
   display: none; /* Hidden by default */
@@ -490,7 +503,7 @@ html {
 
   .modals-container {
     width: 90%;
-    @media only screen and (min-width: 700px) {
+    @media only screen and (min-width: 768px) {
       width: 50%;
     }
      border-radius: $border-rounded;
