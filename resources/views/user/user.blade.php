@@ -73,8 +73,8 @@ $(document).ready(function() {
     });
 
     $.ajax({
-        type: 'POST',
-        url: 'checkCustomerByPhone',
+        type: 'GET',
+        url: 'viewAll',
         dataType: 'json',
         success: function(response) {
             if (response.status === 'success') {
