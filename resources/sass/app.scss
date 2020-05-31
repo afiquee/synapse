@@ -40,6 +40,21 @@ html {
     
   }
 
+  hr {
+    border: 0; border-top: 1px solid $green-one;
+    margin-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  i {
+    padding-right: .5rem;
+  }
+
+  h3 {
+    text-align: left;
+    padding-left: 1rem;
+  }
+
   .header {
     height: 3rem;
     display: flex;
@@ -62,7 +77,9 @@ html {
     @media only screen and (max-width: 700px) {
       display:none;
     }
-    width: 15rem;
+    position: fixed;
+    height:100vh;
+    width: $sidebar-width;
     background: $bg-primary;
     color:white;
     z-index: 1;
@@ -93,6 +110,9 @@ html {
 }
   
   .content {
+    @media only screen and (min-width: 700px) {
+      padding-left: $sidebar-width;
+    }
     background: whitesmoke;
     flex: 1 0 auto;
     /* enable grow, disable shrink */
@@ -201,12 +221,6 @@ html {
     @include btn-theme($green-one,$green-two);
   }
 
-  .forms-wrap {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 10px;
-  }
 
   .full-input {
     display: flex;
