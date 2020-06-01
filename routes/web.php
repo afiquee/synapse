@@ -22,8 +22,8 @@ Auth::routes();
 
 // user 
 Route::get('/user', 'UserController@index')->name('user');
-Route::post('/registerUser', 'UserController@register');
-Route::post('/loignUser', 'UserController@login')->name('loginUser');
+Route::POST('/registerUser', 'UserController@register')->name('registerUser');
+Route::post('/loginUser', 'UserController@login')->name('loginUser');
 Route::get('/viewAll', 'UserController@viewAll')->name('viewAll');
 
 

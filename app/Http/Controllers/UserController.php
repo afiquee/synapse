@@ -7,12 +7,18 @@ use App\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Session;
+use DB;
 
 class UserController extends Controller
 {
+    public $successCode = 200;
+    public $errorCode = 400;
+
     public function index() {
         return view('user.user');
     }
@@ -36,7 +42,33 @@ class UserController extends Controller
     }
 
     public function register(Request $request) {
-        //
+
+        $validator = Validator::make(
+            $request->all(), 
+            [    
+                'name'  => 'required',
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    "status" => "failed",
+                    "msg"    => $validator->errors()
+                ], 
+                $this->errorCode);
+        }
+
+        $input = $request->all(); 
+        $input['password'] = bcrypt('password123'); 
+        User::create($input);
+        return response()->json(
+            [
+                "status" => "success",
+                "msg" => "Register successful",
+            ],
+            $this->successCode);     
+        
     }
 
     public function viewAll() {
@@ -70,7 +102,6 @@ class UserController extends Controller
         }
         $table    .= '</tbody>';
         $table    .= '</table>';
-
 
         return response()->json(
             [
