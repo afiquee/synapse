@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Synapsis') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -20,16 +20,18 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 
-    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('js/dataTables.min.js') }}"></script>
     <script src="https://kit.fontawesome.com/d45262bf36.js" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
     <div class="page">
-        <nav class="sideBar">
+        <nav class="sidebar" id="sidebar">
+            <div class="flex-close">
+                <span class="sidebar-close sidebar-menu"  onclick="toggleSidebar()"><i class="fas fa-times sidebar-menu"></i></span>
+            </div>
             <ul class="nav-list">
                 <li class="nav-item">
                     <a>{{ __('Home') }}</a>
@@ -60,7 +62,8 @@
         <div class="content">
             <div class="header">
                 <div class="headerContent">
-                    Synapse
+                    <span onclick="toggleSidebar()" class="sidebar-toggle"><i
+                            class="fas fa-bars sidebar-menu"></i></span>
                 </div>
             </div>
             <div class="container">
@@ -71,5 +74,14 @@
 </body>
 
 </html>
+
+<script>
+function toggleSidebar() {
+
+    $('#sidebar').toggleClass('sidebar-active');
+    console.log($('#sidebar').hasClass('sidebar-active'));
+
+}
+</script>
 
 @yield('scripts')

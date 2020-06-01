@@ -7,7 +7,7 @@
             <h4 class="align-left">{{ __('Users') }}</h4>
             <button class="btn btn-green" data-id="#myModal" id="myBtn">Add User</button>
         </div>
-        <div class="cards-content">
+        <div class="cards-content table-content">
             <div id="tableData">
 
             </div>

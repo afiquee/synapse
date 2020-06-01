@@ -84,6 +84,14 @@
                             <option value="Kedah">Kedah</option>
                         </select>
                     </div>
+                    <div class="cols">
+                        <label class="input-label" for="state">State</label>
+                        <select id="type" name="type" class="input-select">
+                            <option value="">Select State</option>
+                            <option value="Johor">Johor</option>
+                            <option value="Kedah">Kedah</option>
+                        </select>
+                    </div>
                 </div>
                 <h3><i class="fas fa-shopping-cart"></i>Order</h3>
                 <hr>
@@ -112,11 +120,22 @@
                 <hr>
                 <div class="rows">
                     <div class="cols">
-                        <label class="input-label" for="type">Type *</label>
+                        <label class="input-label" for="type">Type</label>
                         <select id="type" name="type" class="input-select">
-                            <option value="Production">Keychain</option>
-                            <option value="Production">Medal</option>
-                            <option value="Sales">Plaque</option>
+                            <option value="Production">4cm Kayu</option>
+                            <option value="Production">4cm Acrylic</option>
+                            <option value="Sales">4cm Warna</option>
+                        </select>
+                        @error('type')
+                        <label class="label-error">{{ $message }}</label>
+                        @enderror
+                    </div>
+                    <div class="cols">
+                        <label class="input-label" for="type">Shape</label>
+                        <select id="type" name="type" class="input-select">
+                            <option value="Production">Bulat</option>
+                            <option value="Production">Segi Empat</option>
+                            <option value="Sales">Custo</option>
                         </select>
                         @error('type')
                         <label class="label-error">{{ $message }}</label>
@@ -131,7 +150,7 @@
                         @enderror
                     </div>
                     <div class="cols">
-                        <label class="input-label" for="value">Order Value *</label>
+                        <label class="input-label" for="value"> Value *</label>
                         <input name="value" id="value" class="input-text @error('value') is-invalid @enderror"
                             value="{{ old('value') }}" type="text" placeholder="Order Value" required />
                         @error('value')
@@ -139,7 +158,19 @@
                         @enderror
                     </div>
                 </div>
-               
+                <div class="rows cb-rows">
+                    <div class="cb-cols">
+                        <input type="checkbox" class="input-checkbox">
+                        <label class="input-label" for="type">Include Keyring</label>
+                    </div>
+                    <div class="cols">
+
+                        @error('type')
+                        <label class="label-error">{{ $message }}</label>
+                        @enderror
+                    </div>
+                </div>
+
                 <div class="rows">
 
                 </div>
@@ -190,40 +221,41 @@
 @section('scripts')
 
 <script>
-function checkExistingCustomer() {
 
-    let phone = $('#phone').val();
-    let formData = {
-        'phone': phone
-    }
+    function checkExistingCustomer() {
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        let phone = $('#phone').val();
+        let formData = {
+            'phone': phone
         }
-    });
 
-    $.ajax({
-        type: 'POST',
-        data: formData,
-        url: 'getCustomerByPhone',
-        dataType: 'json',
-        success: function(response) {
-            console.log(response);
-            if (response.status === 'success') {
-                let customer = response.data;
-                if (customer === null) {
-                    $('#customer_status').html('New Customer');
-
-                } else {
-                    $('#customer_status').html('Existing Customer');
-                }
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        },
-        error: function(data) {
+        });
 
-        }
-    });
+        $.ajax({
+            type: 'POST',
+            data: formData,
+            url: 'getCustomerByPhone',
+            dataType: 'json',
+            success: function(response) {
+                console.log(response);
+                if (response.status === 'success') {
+                    let customer = response.data;
+                    if (customer === null) {
+                        $('#customer_status').html('New Customer');
+
+                    } else {
+                        $('#customer_status').html('Existing Customer');
+                    }
+                }
+            },
+            error: function(data) {
+
+            }
+        });
 
 }
 </script>
