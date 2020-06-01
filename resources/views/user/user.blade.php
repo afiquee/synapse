@@ -23,6 +23,7 @@
         </div>
         <div class="modals-content">
             <form method="POST">
+                <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                 <div class="forms-wrap">
                     <div class="rows">
                         <div class="cols">
@@ -48,13 +49,13 @@
                         </div>
                     </div>
                     <div class="rows">
-                        <button type="submit" class="btn btn-green"> {{ __('Register') }}</button>
+                        <button type="button" id="butsave" class="btn btn-green"> {{ __('Register') }}</button>
                     </div>
-                </div>
-
-            </form>
         </div>
+
+        </form>
     </div>
+</div>
 
 </div>
 @endsection
@@ -87,6 +88,35 @@ $(document).ready(function() {
 
         }
     });
+
+    $('#butsave').on('click', function() {
+        var name = $('#name').val();
+        var email = $('#email').val();
+        var role = $('#role').val();
+        if (name != "" && email != "" && role != "") {
+            //   $("#butsave").attr("disabled", "disabled");
+            $.ajax({
+                url: "registerUser",
+                type: "POST",
+                data: {
+                    name: name,
+                    email: email,
+                    role: role,
+                },
+                cache: false,
+                success: function(response) {
+                    if (response.statusCode == 200) {
+                        window.location = "/user";
+                    } else {
+                        alert("Error occured !");
+                    }
+
+                }
+            });
+        } else {
+            alert('Please fill all the field !');
+        }
+    });
 });
 
 
@@ -116,5 +146,4 @@ window.onclick = function(event) {
     }
 }
 </script>
-
 @endsection
