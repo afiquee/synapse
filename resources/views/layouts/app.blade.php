@@ -20,6 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 
+
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="{{ asset('js/dataTables.min.js') }}"></script>
     <script src="https://kit.fontawesome.com/d45262bf36.js" crossorigin="anonymous"></script>
@@ -40,7 +41,7 @@
                     <a href="{{ route('logout') }}">{{ __('Profile') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('user') }}">{{ __('User') }}</a>
+                    <a class="{{ Route::currentRouteNamed('user') ? 'nav-active' : '' }}" href="{{ route('user') }}">{{ __('User') }}</a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('addOrder') }}">{{ __('Order') }}</a>

@@ -10,7 +10,6 @@
 table.dataTable thead th,
 table.dataTable tfoot th {
   color: #26bda9;
-  font-size: 0.85rem;
 }
 
 table.dataTable thead th,
@@ -47,7 +46,6 @@ table.dataTable thead td {
 
 table.dataTable tbody tr {
   background-color: #ffffff;
-  font-size: 0.85rem;
   padding: 0.125rem 0;
   color: grey;
 }
@@ -338,7 +336,6 @@ table.dataTable td {
 }
 
 .dataTables_wrapper {
-  font-size: 0.85rem;
   position: relative;
   clear: both;
   *zoom: 1;
@@ -413,7 +410,6 @@ table.dataTable td {
   clear: both;
   float: left;
   padding-top: 0.755em;
-  font-size: 0.85rem;
   padding: 1rem;
 }
 
@@ -572,6 +568,7 @@ table.dataTable td {
 }
 
 html {
+  font-size: 1rem;
   height: 100%;
 }
 
@@ -664,6 +661,16 @@ h3 {
   box-shadow: 4px 7px 10px rgba(0, 0, 0, 0.4);
 }
 
+.span-btn {
+  cursor: pointer;
+}
+
+.table-btn {
+  font-size: 1.5rem;
+  padding-left: 1rem;
+  color: #23232e;
+}
+
 .sidebar-menu {
   font-size: 1.5rem;
   padding-left: 1rem;
@@ -687,6 +694,12 @@ h3 {
   padding: 15px 0px;
 }
 
+.nav-active {
+  border-radius: 5rem;
+  background: linear-gradient(45deg, #30e992, #4cccd8);
+  box-shadow: 0 10px 35px rgba(48, 233, 146, 0.6);
+}
+
 .nav-item {
   padding-top: 2rem;
 }
@@ -699,7 +712,7 @@ h3 {
 }
 
 .nav-item a {
-  padding: 1rem 3rem;
+  padding: 1rem 5rem;
   color: white;
   text-decoration: none;
 }
@@ -726,6 +739,7 @@ h3 {
 }
 
 .cards {
+  font-size: 0.6rem;
   width: 90vw;
   color: #172B4D;
   display: flexbox;
@@ -738,13 +752,15 @@ h3 {
 
 @media only screen and (min-width: 1024px) {
   .cards {
-    width: 80vw;
+    font-size: 0.85rem;
+    max-width: 80vw;
   }
 }
 
 @media only screen and (min-width: 768px) {
   .cards {
-    width: 65vw;
+    font-size: 0.85rem;
+    max-width: 65vw;
   }
 }
 
@@ -787,6 +803,24 @@ h3 {
 
 .align-right {
   padding-right: 2rem;
+}
+
+.btn-round {
+  display: block;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1em;
+  text-transform: uppercase;
+  color: #fff;
+  border-radius: 50%;
+  height: 2.5rem;
+  width: 2.5rem;
+  cursor: pointer;
+  background-size: 200% auto;
+  color: white;
+  transition: 0.5s;
 }
 
 .btn {
@@ -841,6 +875,16 @@ h3 {
   display: flex;
   flex-direction: column;
   padding: 10px;
+}
+
+.always-rows {
+  align-content: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .always-rows {
+    flex-direction: rows;
+  }
 }
 
 .rows {

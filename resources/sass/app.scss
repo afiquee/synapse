@@ -16,8 +16,9 @@
 }
 
 html {
-    height: 100%;
-  }
+  font-size: 1rem;
+  height: 100%;
+}
   
   body {
     height: 100%;
@@ -107,6 +108,17 @@ html {
     box-shadow:4px 7px 10px rgba(0,0,0,.4);
   }
 
+  .span-btn {
+    cursor: pointer;
+  }
+
+  .table-btn {
+    font-size: 1.5rem;
+    padding-left: 1rem;
+    color: $bg-primary;
+  }
+
+
   .sidebar-menu {
     font-size: 1.5rem;
     padding-left: 1rem;
@@ -127,8 +139,15 @@ html {
       padding:15px 0px;
   }
 
+  .nav-active {
+    border-radius: 5rem;
+    background: linear-gradient(45deg, $green-one, $green-two);
+    box-shadow: 0 10px 35px rgba($green-one, .6);
+  }
+
   .nav-item {
     padding-top:2rem;
+    
     a:hover {
         cursor: pointer;
         border-radius: 5rem;
@@ -136,8 +155,7 @@ html {
         box-shadow: 0 10px 35px rgba($green-one, .6);
     }
     a {
-      padding: 1rem 3rem;
-      
+      padding: 1rem 5rem;
       color: white;
       text-decoration: none;
     }
@@ -168,11 +186,14 @@ html {
   
   .cards {
     @media only screen and (min-width: 1024px) {
-      width: 80vw;
+      font-size: .85rem;
+      max-width: 80vw;
     }
     @media only screen and (min-width: 768px) {
-      width: 65vw;
+      font-size: .85rem;
+      max-width: 65vw;
     }
+    font-size: .6rem;
     width: 90vw;
     color: $text-primary;
     display: flexbox;
@@ -224,6 +245,25 @@ html {
     padding-right: 2rem;
   }
 
+  .btn-round {
+    display: block;
+    border: none;
+    outline:none;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1em;
+    text-transform: uppercase;
+    color: $white;
+    //Button shape & animation
+    border-radius: 50%;
+    height: 2.5rem;
+    width: 2.5rem;
+    cursor: pointer;
+    background-size: 200% auto;
+    color: white;
+    transition: 0.5s;
+  }
+
 
   .btn {
     display: block;
@@ -270,6 +310,13 @@ html {
     display: flex;
     flex-direction: column;
     padding: 10px;
+  }
+
+  .always-rows {
+    align-content: center;
+    @media only screen and (max-width: 768px) {
+      flex-direction: rows;
+    }
   }
 
   .rows {

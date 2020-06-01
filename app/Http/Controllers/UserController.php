@@ -49,6 +49,7 @@ class UserController extends Controller
         $table    .= '<th>Email</th>';
         $table    .= '<th>Name</th>';
         $table    .= '<th>Role</th>';
+        // $table    .= '<th>Action</th>';
         $table    .= '</thead>';
         $table    .= '</tr>';
 
@@ -59,6 +60,12 @@ class UserController extends Controller
             $table    .= "<td>{$user['email']}</td>";
             $table    .= "<td>{$user['name']}</td>";
             $table    .= "<td>{$user['role']}</td>";
+            // $table    .= "<td>{$user['role']}</td>";
+            // $table    .= '<td><div class="">';
+            // $table    .= '<span onclick="updateRow(this)" data-id="'.$user['id'].'" class="span-btn"><i class="fas fa-edit table-btn"></i></span>';
+            // $table    .= '<span onclick="deleteRow(this)" data-id="'.$user['id'].'" class="span-btn"><i class="fas fa-trash table-btn"></i></span>';
+            // $table    .= '</div>';
+            // $table    .= '</td>';
             $table    .= '</tr>';
         }
         $table    .= '</tbody>';
