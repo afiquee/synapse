@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="containers">
-    <div class="cards">
+    <div class="cards cards-lg">
         <div class="cards-header">
             <h4 class="align-left">{{ __('Users') }}</h4>
             <button class="btn btn-green" data-id="#myModal" id="myBtn"><i class="fas fa-plus"></i>Add User</button>

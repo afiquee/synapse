@@ -15,8 +15,12 @@
     font-family: 'Open Sans';
 }
 
+.icon {
+  margin-top: 2px;
+}
+
 html {
-  font-size: 1rem;
+  font-size: 12px;
   height: 100%;
 }
   
@@ -31,8 +35,15 @@ html {
     
   }
 
-  hr {
-    border: 0; border-top: 1px solid $green-one;
+  .hr-major {
+    border: 0; 
+    border-top: 1px solid $green-one;
+    margin-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .hr-minor {
+    border: 0; border-top: 1px dashed #cecece;
     margin-left: 1rem;
     padding-right: 1rem;
   }
@@ -44,6 +55,18 @@ html {
   h3 {
     text-align: left;
     padding-left: 1rem;
+  }
+  h4 {
+    text-align: left;
+    padding-left: 1rem;
+  }
+
+  .section-item {
+    display: none;
+  }
+
+  .section-active {
+    display: block;
   }
 
   .header {
@@ -101,6 +124,7 @@ html {
     position: fixed;
     transition: .3s;
     height:100%;
+    font-size: 1.2rem;
     width: $sidebar-width;
     background: $bg-primary;
     color:white;
@@ -146,6 +170,7 @@ html {
   }
 
   .nav-item {
+    
     padding-top:2rem;
     
     a:hover {
@@ -155,7 +180,13 @@ html {
         box-shadow: 0 10px 35px rgba($green-one, .6);
     }
     a {
-      padding: 1rem 5rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      margin-right: 1rem;
+      margin-left: 1rem;
+      align-items:flex-start;
+      padding: 1rem 2rem 1rem 1rem;
       color: white;
       text-decoration: none;
     }
@@ -178,23 +209,45 @@ html {
     flex-wrap: wrap;
     flex: 1 1 auto;
     justify-content: center;
+    padding-bottom: 10vh;
     
+  }
+
+  .table {
+    @media only screen and (min-width: 1024px) {
+      font-size: 1rem;
+    }
+    @media only screen and (min-width: 768px) {
+      font-size: 1rem;
+    }
+    font-size: .85rem;
+
+  }
+
+  .cards-sm {
+    @media only screen and (min-width: 1024px) {
+      width: 500px;
+    }
+    @media only screen and (min-width: 768px) {
+      width: 500px;
+    }
+    width: 90vw;
+  }
+
+  .cards-lg {
+    @media only screen and (min-width: 1024px) {
+      max-width: 80vw;
+    }
+    @media only screen and (min-width: 768px) {
+      max-width: 65vw;
+    }
+    width: 90vw;
   }
 
   
   // cards UI
   
   .cards {
-    @media only screen and (min-width: 1024px) {
-      font-size: .85rem;
-      max-width: 80vw;
-    }
-    @media only screen and (min-width: 768px) {
-      font-size: .85rem;
-      max-width: 65vw;
-    }
-    font-size: .6rem;
-    width: 90vw;
     color: $text-primary;
     display: flexbox;
     background-color: $white;
@@ -434,6 +487,64 @@ html {
     }
   }
 
+  .custom-file-upload-hidden {
+    display: none;
+    visibility: hidden;
+    position: absolute;
+    left: -9999px;
+}
+.custom-file-upload {
+    display: block;
+    width: auto;
+    //border: 1px solid #ccc;
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+}
+
+.file-upload-wrapper {
+    display: flex;
+    position: relative; 
+    margin-bottom: 5px;
+    //border: 1px solid #ccc;
+}
+.file-upload-input {
+    border: 1px solid #dddddd;
+    border-radius: $border-rounded;
+    border-top-right-radius: unset;
+    border-bottom-right-radius: unset;
+    width:300px;
+    color: $text-grey;
+    padding: 11px 17px; 
+    transition: all 0.2s ease-in;
+    float: left; /* IE 9 Fix */
+    &:hover, &:focus { 
+      outline: none;
+      border: 1px solid #1cea64;
+      box-shadow: 0 8px 10px rgba(0, 188, 122,.11), 0 1px 3px rgba(72, 214, 145,.08);
+    }
+}
+.file-upload-button {
+    cursor: pointer; 
+    display: inline-block; 
+    color: #fff;
+    text-transform: uppercase;
+    padding: 11px 20px; 
+    border:none;
+    border-radius: $border-rounded;
+    border-top-left-radius: unset;
+    border-bottom-left-radius: unset;
+    outline: none;
+    margin-left: -1px;  
+    background-color: darken($green-one, 10); 
+    float: left; /* IE 9 Fix */
+    transition: all 0.2s ease-in;
+    &:hover {
+        background-color: darken($green-one, 20);
+    }
+}
+
   
 
   .select-hidden {
@@ -460,6 +571,18 @@ html {
   }
 
 }
+.select-hidden {
+  display: none;
+  visibility: hidden;
+  padding-right: 10px;
+}
+
+.select {
+  cursor: pointer;
+  display: flex;
+  position: relative;
+  color: black;
+}
 
 
 .select-styled {
@@ -468,10 +591,13 @@ html {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: white;
-  border: 1px solid #2dce89;
-  border-radius: 4px;
-  padding: 8px 15px;
+  border: 1px solid #dddddd;
+  border-radius: $border-rounded;
+  color: $text-grey;
+  cursor: pointer;
+  display: inline-block;
+  height: 2.7rem;
+  min-width: 100px;
   -moz-transition: all 0.2s ease-in;
   -o-transition: all 0.2s ease-in;
   -webkit-transition: all 0.2s ease-in;
@@ -512,7 +638,6 @@ html {
   box-shadow: 0 4px 6px rgba(50, 50, 93, .2), 0 1px 3px rgba(0, 0, 0, .08);
 }
 .select-options li {
-  font-weight: 700;
   margin: 0;
   padding: 12px 0;
   text-indent: 15px;
@@ -528,6 +653,7 @@ html {
 .select-options li[rel="hide"] {
   display: none;
 }
+
 
 
 

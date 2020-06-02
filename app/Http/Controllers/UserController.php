@@ -23,6 +23,10 @@ class UserController extends Controller
         return view('user.user');
     }
 
+    public function profile() {
+        return view('user.profile');
+    }
+
     public function login(Request $request) {
 
         $validatedData = $request->validate([

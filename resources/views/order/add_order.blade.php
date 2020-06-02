@@ -10,7 +10,7 @@
             <form method="POST" action="{{ route('loginUser') }}">
                 @csrf
                 <h3><i class="fas fa-user"></i>Customer</h3>
-                <hr>
+                <hr class="hr-major">
                 <div class="rows">
                     <div class="cols">
                         <div class="rows removePadding">
@@ -26,7 +26,6 @@
                     </div>
                     <div class="cols">
                         <input name="isExisting" id="isExisting" type="text" style="visibility:hidden" />
-
                     </div>
                 </div>
                 <div class="rows">
@@ -94,7 +93,7 @@
                     </div>
                 </div>
                 <h3><i class="fas fa-shopping-cart"></i>Order</h3>
-                <hr>
+                <hr class="hr-major">
                 <div class="rows">
                     <div class="cols">
                         <label class="input-label" for="deadline">Project Deadline *</label>
@@ -117,145 +116,313 @@
                     </div>
                 </div>
                 <h3><i class="fas fa-medal"></i>Item</h3>
-                <hr>
-                <div class="rows">
-                    <div class="cols">
-                        <label class="input-label" for="type">Type</label>
-                        <select id="type" name="type" class="input-select">
-                            <option value="Production">4cm Kayu</option>
-                            <option value="Production">4cm Acrylic</option>
-                            <option value="Sales">4cm Warna</option>
-                        </select>
-                        @error('type')
-                        <label class="label-error">{{ $message }}</label>
-                        @enderror
-                    </div>
-                    <div class="cols">
-                        <label class="input-label" for="type">Shape</label>
-                        <select id="type" name="type" class="input-select">
-                            <option value="Production">Bulat</option>
-                            <option value="Production">Segi Empat</option>
-                            <option value="Sales">Custo</option>
-                        </select>
-                        @error('type')
-                        <label class="label-error">{{ $message }}</label>
-                        @enderror
-                    </div>
-                    <div class="cols">
-                        <label class="input-label" for="quantity">Quantity *</label>
-                        <input name="quantity" id="quantity" class="input-text @error('quantity') is-invalid @enderror"
-                            value="{{ old('quantity') }}" type="text" placeholder="Quantity" required />
-                        @error('quantity')
-                        <label class="label-error">{{ $message }}</label>
-                        @enderror
-                    </div>
-                    <div class="cols">
-                        <label class="input-label" for="value"> Value *</label>
-                        <input name="value" id="value" class="input-text @error('value') is-invalid @enderror"
-                            value="{{ old('value') }}" type="text" placeholder="Order Value" required />
-                        @error('value')
-                        <label class="label-error">{{ $message }}</label>
-                        @enderror
-                    </div>
-                </div>
+                <hr class="hr-major">
+
                 <div class="rows cb-rows">
                     <div class="cb-cols">
-                        <input type="checkbox" class="input-checkbox">
-                        <label class="input-label" for="type">Include Keyring</label>
+                        <input type="checkbox" onclick="toggleSection('keychain_container')" name="keychain_toggle"
+                            class="input-checkbox">
+                        <label class="input-label" for="keychain_toggle">Keychain</label>
                     </div>
-                    <div class="cols">
-
-                        @error('type')
-                        <label class="label-error">{{ $message }}</label>
-                        @enderror
+                    <div class="cb-cols">
+                        <input type="checkbox" onclick="toggleSection('medal_container')" name="medal_toggle"
+                            class="input-checkbox">
+                        <label class="input-label" for="medal_toggle">Medal</label>
+                    </div>
+                    <div class="cb-cols">
+                        <input type="checkbox" onclick="toggleSection('lanyard_container')" name="lanyard_toggle"
+                            class="input-checkbox">
+                        <label class="input-label" for="lanyard_toggle">Lanyard</label>
+                    </div>
+                    <div class="cb-cols">
+                        <input type="checkbox" onclick="toggleSection('custom_container')" name="custom_toggle"
+                            class="input-checkbox">
+                        <label class="input-label" for="custom_toggle">Custom</label>
                     </div>
                 </div>
 
-                <div class="rows">
+                <div id="keychain_container" style="transition: all 0.2s ease-in;" class="section-item">
+                    <h4></i>Keychain</h4>
+                    <hr class="hr-minor">
+                    <div class="rows">
+                        <div class="cols">
+                            <label class="input-label" for="type">Keychain Type</label>
+                            <select id="type" name="type" class="input-select">
+                                <option value="Production">4cm Kayu</option>
+                                <option value="Production">4cm Acrylic</option>
+                                <option value="Sales">4cm Warna</option>
+                            </select>
+                            @error('type')
+                            <label class="label-error">{{ $message }}</label>
+                            @enderror
+                        </div>
+                        <div class="cols">
+                            <label class="input-label" for="type">Keychain Shape</label>
+                            <select id="type" name="type" class="input-select">
+                                <option value="Production">Bulat</option>
+                                <option value="Production">Segi Empat</option>
+                                <option value="Sales">Custo</option>
+                            </select>
+                            @error('type')
+                            <label class="label-error">{{ $message }}</label>
+                            @enderror
+                        </div>
+                        <div class="cols">
+                            <label class="input-label" for="quantity">Quantity *</label>
+                            <input name="quantity" id="quantity"
+                                class="input-text @error('quantity') is-invalid @enderror" value="{{ old('quantity') }}"
+                                type="text" placeholder="Quantity" required />
+                            @error('quantity')
+                            <label class="label-error">{{ $message }}</label>
+                            @enderror
+                        </div>
+                        <div class="cols">
+                            <label class="input-label" for="value"> Value *</label>
+                            <input name="value" id="value" class="input-text @error('value') is-invalid @enderror"
+                                value="{{ old('value') }}" type="text" placeholder="Order Value" required />
+                            @error('value')
+                            <label class="label-error">{{ $message }}</label>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="rows cb-rows">
+                        <div class="cb-cols">
+                            <input type="checkbox" class="input-checkbox">
+                            <label class="input-label" for="type">Include Keyring</label>
+                        </div>
+                        <div class="cols">
 
+                            @error('type')
+                            <label class="label-error">{{ $message }}</label>
+                            @enderror
+                        </div>
+                        <div class="cb-cols">
+                            <input type="checkbox" class="input-checkbox">
+                            <label class="input-label" for="type">Require Heatpress</label>
+                        </div>
+                        <div class="cols">
+
+                            @error('type')
+                            <label class="label-error">{{ $message }}</label>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="rows">
+                        <div class="cols">
+                            <div class="custom-file-upload">
+                                <label class="input-label" for="file">Keychain Files</label>
+                                <input type="file" id="keychain_files" name="keychain_files[]" multiple />
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <div id="medal_container" class="section-item">
+                    <h4></i>Medal</h4>
+                    <hr class="hr-minor">
+                    <div class="rows">
+                        <div class="cols">
+                            <label class="input-label" for="type">Medal Type</label>
+                            <select id="type" name="type" class="input-select">
+                                <option value="Production">4cm Kayu</option>
+                                <option value="Production">4cm Acrylic</option>
+                                <option value="Sales">4cm Warna</option>
+                            </select>
+                            @error('type')
+                            <label class="label-error">{{ $message }}</label>
+                            @enderror
+                        </div>
+                        <div class="cols">
+                            <label class="input-label" for="quantity">Quantity *</label>
+                            <input name="quantity" id="quantity"
+                                class="input-text @error('quantity') is-invalid @enderror" value="{{ old('quantity') }}"
+                                type="text" placeholder="Quantity" required />
+                            @error('quantity')
+                            <label class="label-error">{{ $message }}</label>
+                            @enderror
+                        </div>
+                        <div class="cols">
+                            <label class="input-label" for="value"> Value *</label>
+                            <input name="value" id="value" class="input-text @error('value') is-invalid @enderror"
+                                value="{{ old('value') }}" type="text" placeholder="Order Value" required />
+                            @error('value')
+                            <label class="label-error">{{ $message }}</label>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="rows">
+                        <div class="cols">
+                            <div class="custom-file-upload">
+                                <label class="input-label" for="file">Medal Files</label>
+                                <input type="file" id="keychain_files" name="keychain_files[]" multiple />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="lanyard_container" class="section-item">
+                    <h4></i>Lanyard</h4>
+                    <hr class="hr-minor">
+                    <div class="rows">
+                        <div class="cols">
+                            <label class="input-label" for="type">Lanyard Type</label>
+                            <select id="type" name="type" class="input-select">
+                                <option value="Production">4cm Kayu</option>
+                                <option value="Production">4cm Acrylic</option>
+                                <option value="Sales">4cm Warna</option>
+                            </select>
+                            @error('type')
+                            <label class="label-error">{{ $message }}</label>
+                            @enderror
+                        </div>
+                        <div class="cols">
+                            <label class="input-label" for="quantity">Quantity *</label>
+                            <input name="quantity" id="quantity"
+                                class="input-text @error('quantity') is-invalid @enderror" value="{{ old('quantity') }}"
+                                type="text" placeholder="Quantity" required />
+                            @error('quantity')
+                            <label class="label-error">{{ $message }}</label>
+                            @enderror
+                        </div>
+                        <div class="cols">
+                            <label class="input-label" for="value"> Value *</label>
+                            <input name="value" id="value" class="input-text @error('value') is-invalid @enderror"
+                                value="{{ old('value') }}" type="text" placeholder="Order Value" required />
+                            @error('value')
+                            <label class="label-error">{{ $message }}</label>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="rows">
+                        <div class="cols">
+                            <div class="custom-file-upload">
+                                <label class="input-label" for="file">Lanyard Files</label>
+                                <input type="file" id="keychain_files" name="keychain_files[]" multiple />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="custom_container" class="section-item">
+                    <h4></i>Custom</h4>
+                    <hr class="hr-minor">
+                    <div class="rows">
+                        <div class="cols">
+                            <label class="input-label" for="type">Lanyard Type</label>
+                            <select id="type" name="type" class="input-select">
+                                <option value="Production">4cm Kayu</option>
+                                <option value="Production">4cm Acrylic</option>
+                                <option value="Sales">4cm Warna</option>
+                            </select>
+                            @error('type')
+                            <label class="label-error">{{ $message }}</label>
+                            @enderror
+                        </div>
+                        <div class="cols">
+                            <label class="input-label" for="quantity">Quantity *</label>
+                            <input name="quantity" id="quantity"
+                                class="input-text @error('quantity') is-invalid @enderror" value="{{ old('quantity') }}"
+                                type="text" placeholder="Quantity" required />
+                            @error('quantity')
+                            <label class="label-error">{{ $message }}</label>
+                            @enderror
+                        </div>
+                        <div class="cols">
+                            <label class="input-label" for="value"> Value *</label>
+                            <input name="value" id="value" class="input-text @error('value') is-invalid @enderror"
+                                value="{{ old('value') }}" type="text" placeholder="Order Value" required />
+                            @error('value')
+                            <label class="label-error">{{ $message }}</label>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="rows">
+                        <div class="cols">
+                            <div class="custom-file-upload">
+                                <label class="input-label" for="file">Custom Files</label>
+                                <input type="file" id="keychain_files" name="keychain_files[]" multiple />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="rows">
                     <button type="submit" class="btn btn-green"> {{ __('Submit') }}</button>
+                    <button type="button" onclick="notify()" class="btn btn-green"> {{ __('ALert') }}</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<div id="myModal" class="modals">
-    <div class="modals-container">
-        <div class="modals-header">
-            <h4 class="align-left">{{ __('Register User') }}</h4>
-            <span class="close">&times;</span>
-        </div>
-        <div class="modals-content">
-            <form method="POST">
-                <div class="rows">
-                    <label class="input-label" for="email">Email</label>
-                    <input name="email" id="email" class="input-text" value="{{ old('email') }}" type="text"
-                        placeholder="Email" required />
-                </div>
-                <div class="rows">
-                    <label class="input-label" for="name">Name</label>
-                    <input name="name" id="name" class="input-text" type="text" placeholder="Name" required />
-                </div>
-                <div class="rows">
-                    <label class="input-label" for="role">Role</label>
-                    <select id="role" name="role" class="input-select">
-                        <option value="Production">Production</option>
-                        <option value="Sales">Sales</option>
-                        <option value="Admin">Admin</option>
-                    </select>
-                </div>
-                <div class="rows">
-                    <button type="submit" class="btn btn-green"> {{ __('Register') }}</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-</div>
 @endsection
 
 
 @section('scripts')
 
 <script>
+function notify() {
+    Notiflix.Loading.Init({
+        messageColor: '#fff',
+        svgSize: '100px',
+        clickToClose: true,
+    });
 
-    function checkExistingCustomer() {
+    setTimeout(function() {
+        Notiflix.Report.Success(
+            'Successful',
+            'Order created',
+            'Okay',
+            function() {
 
-        let phone = $('#phone').val();
-        let formData = {
-            'phone': phone
-        }
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'POST',
-            data: formData,
-            url: 'getCustomerByPhone',
-            dataType: 'json',
-            success: function(response) {
-                console.log(response);
-                if (response.status === 'success') {
-                    let customer = response.data;
-                    if (customer === null) {
-                        $('#customer_status').html('New Customer');
-
-                    } else {
-                        $('#customer_status').html('Existing Customer');
-                    }
-                }
+                //window.location.href = "{{ URL::to('addOrder') }}"
             },
-            error: function(data) {
-
+            function() {
+                // No button callback alert('If you say so...'); 
             }
-        });
+        );
+    }, 500);
+
+}
+
+function toggleSection(section) {
+    $(`#${section}`).toggleClass('section-active');
+}
+
+function checkExistingCustomer() {
+
+    let phone = $('#phone').val();
+    let formData = {
+        'phone': phone
+    }
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        type: 'POST',
+        data: formData,
+        url: 'getCustomerByPhone',
+        dataType: 'json',
+        success: function(response) {
+            console.log(response);
+            if (response.status === 'success') {
+                let customer = response.data;
+                if (customer === null) {
+                    $('#customer_status').html('New Customer');
+
+                } else {
+                    $('#customer_status').html('Existing Customer');
+                }
+            }
+        },
+        error: function(data) {
+
+        }
+    });
 
 }
 </script>
