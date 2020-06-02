@@ -1207,8 +1207,7 @@ h4 {
   color: #76797f;
   cursor: pointer;
   display: inline-block;
-  height: 2.7rem;
-  min-width: 100px;
+  height: 200px;
   transition: all 0.2s ease-in;
 }
 
