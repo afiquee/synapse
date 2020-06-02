@@ -58,13 +58,68 @@
 </div>
 
 </div>
+
+<div id="updateModal" class="modals">
+    <div class="modals-container">
+        <div class="modals-header">
+            <h4 class="align-left">{{ __('Register User') }}</h4>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modals-content">
+            <form method="POST">
+                <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
+                <div class="forms-wrap">
+                    <div class="rows">
+                        <div class="cols">
+                            <label class="input-label" for="email">Email</label>
+                            <input name="u_email" id="email" class="input-text" value="{{ old('email') }}" type="text"
+                                placeholder="Email" required />
+                        </div>
+                    </div>
+                    <div class="rows">
+                        <div class="cols">
+                            <label class="input-label" for="name">Name</label>
+                            <input name="name" id="name" class="input-text" type="text" placeholder="Name" required />
+                        </div>
+                    </div>
+                    <div class="rows">
+                        <div class="cols">
+                            <label class="input-label" for="role">Role</label>
+                            <select id="role" name="role" class="input-select">
+                                <option value="Production">Production</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="rows">
+                        <button type="button" id="butsave" class="btn btn-green"> {{ __('Register') }}</button>
+                    </div>
+        </div>
+
+        </form>
+    </div>
+</div>
+
+</div>
 @endsection
 
 
 @section('scripts')
 
 <script>
+
+function updateRow(obj) {
+    console.log($(obj).data('id'));
+    var name = $(obj).data('name');
+
+    $('#email').val(name);
+    var updateModal = document.getElementById('updateModal');
+    updateModal.style.display = "flex";
+}
 $(document).ready(function() {
+
+    
 
 
     $.ajaxSetup({
@@ -117,6 +172,8 @@ $(document).ready(function() {
             alert('Please fill all the field !');
         }
     });
+
+    
 });
 
 
