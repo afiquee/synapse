@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -69,11 +70,40 @@ class UserController extends Controller
         return response()->json(
             [
                 "status" => "success",
+                "msg" => "Get users successful",
+            ],
+            $this->successCode);     
+    }
+
+    public function update(Request $request) {
+
+        $input = $request->all(); 
+        $input['password'] = bcrypt('password123'); 
+        $input = User::where('id',$request->input('id'))->update
+            ([
+            'name'             => $request->input('name'),
+            'email'            => $request->input('email'),
+            'role'             => $request->input('role'),
+            ]);
+        return response()->json(
+            [
+                "status" => "success",
                 "msg" => "Register successful",
             ],
             $this->successCode);     
-        
     }
+
+    public function delete(Request $request) {
+        $input = $request->all();
+        $input = User::where('id',$request->input('id'))->delete();
+    return response()->json(
+        [
+            "status" => "success",
+            "msg" => "Register successful",
+        ],
+        $this->successCode);     
+    }
+   
 
     public function viewAll() {
         $users = User::All();
