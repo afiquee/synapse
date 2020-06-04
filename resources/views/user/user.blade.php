@@ -72,20 +72,20 @@
                     <div class="rows">
                         <div class="cols">
                             <label class="input-label" for="email">Email</label>
-                            <input name="u_email" id="email" class="input-text" value="{{ old('email') }}" type="text"
+                            <input name="u_email" id="u_email" class="input-text" value="{{ old('email') }}" type="text"
                                 placeholder="Email" required />
                         </div>
                     </div>
                     <div class="rows">
                         <div class="cols">
                             <label class="input-label" for="name">Name</label>
-                            <input name="name" id="name" class="input-text" type="text" placeholder="Name" required />
+                            <input name="u_name" id="u_name" class="input-text" type="text" placeholder="Name" required />
                         </div>
                     </div>
                     <div class="rows">
                         <div class="cols">
                             <label class="input-label" for="role">Role</label>
-                            <select id="role" name="role" class="input-select">
+                            <select id="u_role" name="u_role" class="input-select">
                                 <option value="Production">Production</option>
                                 <option value="Sales">Sales</option>
                                 <option value="Admin">Admin</option>
@@ -93,7 +93,7 @@
                         </div>
                     </div>
                     <div class="rows">
-                        <button type="button" id="butsave" class="btn btn-green"> {{ __('Register') }}</button>
+                        <button type="button" id="updateuserrr" class="btn btn-green"> {{ __('Update User') }}</button>
                     </div>
         </div>
 
@@ -110,18 +110,81 @@
 <script>
 
 function updateRow(obj) {
-    console.log($(obj).data('id'));
-    var name = $(obj).data('name');
 
-    $('#email').val(name);
+    var u_email = $(obj).data('email');
+    var u_name = $(obj).data('name');
+    var u_role = $(obj).data('role');
+    var u_id = $(obj).data('id');
+
+    $('#u_email').val(u_email);
+    $('#u_name').val(u_name);
+    $('#u_role').val(u_role);
+
+    $('#updateuserrr').on('click', function() {
+        var name = $('#u_email').val();
+        var email = $('#u_name').val();
+        var role = $('#u_role').val();
+        var successCodes = 200;
+        if (name != "" && email != "" && role != "") {
+            //   $("#butsave").attr("disabled", "disabled");
+            $.ajax({
+                url: "updateUser",
+                type: "POST",
+                data: {
+                    id: u_id,
+                    name: name,
+                    email: email,
+                    role: role,
+                },
+                cache: false,
+                success: function(response) {
+                    if (response.successCode == successCodes) {
+                        Notiflix.Report.Success( 'Notiflix Success', 
+                        '', 
+                        'Click' ); 
+                    } else {
+                        alert("Error occured !");
+                    }
+                }
+            });
+        } else {
+            alert('Please fill all the field !');
+        }
+    });
     var updateModal = document.getElementById('updateModal');
     updateModal.style.display = "flex";
+
+    window.onclick = function(event) {
+        if (event.target == updateModal) {
+        updateModal.style.display = "none";
+        }
+    }
 }
-$(document).ready(function() {
 
+function deleteRow(obj){
+
+    var del_id=$(obj).data('id');
     
+    $('#deleteRowBtn').on("click", function() { 
+        var id= del_id;
+        var successCodes = 200;
+		$.ajax({
+			url: "deleteUser",
+			type: "GET",
+			cache: false,
+			data:{
+                id: id,
+			},
+			success: function(response){
+				if(response.successCode==successCodes){
+					location.reload();
+				}
+			}
+		});
+	});
+}
 
-
+$(document).ready(function() {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -140,7 +203,6 @@ $(document).ready(function() {
             }
         },
         error: function(data) {
-
         }
     });
 
@@ -151,31 +213,34 @@ $(document).ready(function() {
         if (name != "" && email != "" && role != "") {
             //   $("#butsave").attr("disabled", "disabled");
             $.ajax({
-                url: "registerUser",
-                type: "POST",
+                url: 'registerUser',
+                type: 'POST',
                 data: {
                     name: name,
                     email: email,
                     role: role,
                 },
-                cache: false,
                 success: function(response) {
-                    if (response.statusCode == 200) {
-                        window.location = "/user";
+                    if (response.successCode === 'success') {
+                        Notiflix.Report.Success( 
+                        'Success', 
+                        'User register succesful', 
+                        'Click' ); 
+                        window.location.reload(); 
                     } else {
-                        alert("Error occured !");
+                        Notiflix.Report.Failure( 
+                        'Failure', 
+                        'Email already taken', 
+                        'Click' );
+                        window.location.reload(); 
                     }
-
-                }
+                },
             });
         } else {
             alert('Please fill all the field !');
         }
-    });
-
-    
+    });    
 });
-
 
 
 var modal = document.getElementById("myModal");
