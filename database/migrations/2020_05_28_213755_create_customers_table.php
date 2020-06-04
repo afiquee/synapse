@@ -18,6 +18,10 @@ class CreateCustomersTable extends Migration
             $table->string('phone')->unique();
             $table->string('name');
             $table->string('email')->nullable();
+            $table->string('address')->nullable();
+            $table->string('postcode')->nullable();
+            $table->string('city')->nullable();
+            $table->integer('state_id')->nullable()->constrained('states');
             $table->integer('created_by')->nullable()->constrained('users');
             $table->timestamp('updated_at')->nullable();
             $table->integer('updated_by')->nullable()->constrained('users');

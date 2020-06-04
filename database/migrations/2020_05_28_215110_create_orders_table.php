@@ -15,9 +15,8 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->integer('quantity');
-            $table->string('value');
+            $table->dateTime('deadline');
+            $table->string('payment_type');
             $table->integer('created_by')->nullable()->constrained('users');
             $table->timestamp('updated_at')->nullable();
             $table->integer('updated_by')->nullable()->constrained('users');

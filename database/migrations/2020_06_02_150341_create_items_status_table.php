@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUploadsTable extends Migration
+class CreateStatusBridgesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,12 @@ class CreateUploadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('uploads', function (Blueprint $table) {
+        Schema::create('items_status', function (Blueprint $table) {
             $table->id();
             $table->integer('item_id')->constrained('items');
-            $table->string('filename');
-            $table->string('location');
+            $table->integer('status_id')->constrained('status');
             $table->timestamp('created_at')->nullable();
             $table->integer('created_by')->nullable()->constrained('users');
-            $table->timestamp('updated_at')->nullable();
-            $table->integer('updated_by')->nullable()->constrained('users');
-            $table->timestamp('deleted_at')->nullable();
-            $table->integer('deleted_by')->nullable()->constrained('users');
         });
     }
 
@@ -34,6 +29,6 @@ class CreateUploadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('uploads');
+        Schema::dropIfExists('status_bridges');
     }
 }
