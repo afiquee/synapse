@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\MatchOldPassword;
 use Illuminate\Support\Facades\Response;
 use Session;
 use DB;
@@ -73,6 +74,24 @@ class UserController extends Controller
                 "msg" => "Get users successful",
             ],
             $this->successCode);     
+    }
+
+    public function editprofile(Request $request){
+        $request->validate([
+            'new_password' => ['required'],
+            'new_confirm_password' => ['required|same:new_password'],
+            'current_password' => ['required', function ($attribute, $value, $fail) {
+                if (Hash::check($value == 'new_password')) {
+                    return $fail(__('The current password is incorrect.'));
+                }
+            }],
+        ]);
+        $input = $request->all(); 
+        $id = Auth::user()->id;
+        $input = User::where('id',$request->id)->update
+        ([
+        'password'        => $request->input('new_password'),
+        ]);
     }
 
     public function update(Request $request) {
