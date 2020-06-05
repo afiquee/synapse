@@ -5,7 +5,9 @@
     <div class="cards cards-lg">
         <div class="cards-header">
             <h4 class="align-left">{{ __('Users') }}</h4>
-            <button class="btn btn-green" data-id="#myModal" id="myBtn"><i class="fas fa-plus"></i>Add User</button>
+            <button class="btn btn-green" data-id="#myModal" onclick="openModal('registerModal')"><i
+                    class="fas fa-plus"></i>Add
+                User</button>
         </div>
         <div class="cards-content table-content">
             <div id="tableData">
@@ -15,14 +17,14 @@
     </div>
 </div>
 
-<div id="myModal" class="modals">
+<div id="registerModal" class="modals">
     <div class="modals-container">
         <div class="modals-header">
             <h4 class="align-left">{{ __('Register User') }}</h4>
-            <span class="close">&times;</span>
+            <span onclick="closeModal('registerModal')" class="close">&times;</span>
         </div>
         <div class="modals-content">
-            <form method="POST">
+            <form method="POST" onsubmit="event.preventDefault(); registerUser()">
                 <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                 <div class="forms-wrap">
                     <div class="rows">
@@ -30,12 +32,14 @@
                             <label class="input-label" for="email">Email</label>
                             <input name="email" id="email" class="input-text" value="{{ old('email') }}" type="text"
                                 placeholder="Email" required />
+                            <label id="email_error" class="label-error"></label>
                         </div>
                     </div>
                     <div class="rows">
                         <div class="cols">
                             <label class="input-label" for="name">Name</label>
                             <input name="name" id="name" class="input-text" type="text" placeholder="Name" required />
+                            <label id="name_error" class="label-error"></label>
                         </div>
                     </div>
                     <div class="rows">
@@ -49,25 +53,26 @@
                         </div>
                     </div>
                     <div class="rows">
-                        <button type="button" id="butsave" class="btn btn-green"> {{ __('Register') }}</button>
+                        <button type="submit" id="butsave" class="btn btn-green"> {{ __('Register') }}</button>
                     </div>
-        </div>
+                </div>
 
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
 </div>
 
 <div id="updateModal" class="modals">
     <div class="modals-container">
         <div class="modals-header">
-            <h4 class="align-left">{{ __('Register User') }}</h4>
-            <span class="close">&times;</span>
+            <h4 class="align-left">{{ __('Update User') }}</h4>
+            <span onclick="closeModal('updateModal')" class="close">&times;</span>
         </div>
         <div class="modals-content">
-            <form method="POST">
+            <form method="POST" onsubmit="event.preventDefault(); updateUser()">
                 <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
+                <input type="hidden" name="u_id" id="u_id">
                 <div class="forms-wrap">
                     <div class="rows">
                         <div class="cols">
@@ -79,7 +84,8 @@
                     <div class="rows">
                         <div class="cols">
                             <label class="input-label" for="name">Name</label>
-                            <input name="u_name" id="u_name" class="input-text" type="text" placeholder="Name" required />
+                            <input name="u_name" id="u_name" class="input-text" type="text" placeholder="Name"
+                                required />
                         </div>
                     </div>
                     <div class="rows">
@@ -93,13 +99,13 @@
                         </div>
                     </div>
                     <div class="rows">
-                        <button type="button" id="updateuserrr" class="btn btn-green"> {{ __('Update User') }}</button>
+                        <button type="submit" class="btn btn-green"> {{ __('Update User') }}</button>
                     </div>
-        </div>
+                </div>
 
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
 </div>
 @endsection
@@ -108,7 +114,6 @@
 @section('scripts')
 
 <script>
-
 function updateRow(obj) {
 
     var u_email = $(obj).data('email');
@@ -119,69 +124,95 @@ function updateRow(obj) {
     $('#u_email').val(u_email);
     $('#u_name').val(u_name);
     $('#u_role').val(u_role);
+    $('#u_id').val(u_id);
 
-    $('#updateuserrr').on('click', function() {
-        var name = $('#u_email').val();
-        var email = $('#u_name').val();
-        var role = $('#u_role').val();
-        var successCodes = 200;
-        if (name != "" && email != "" && role != "") {
-            //   $("#butsave").attr("disabled", "disabled");
-            $.ajax({
-                url: "updateUser",
-                type: "POST",
-                data: {
-                    id: u_id,
-                    name: name,
-                    email: email,
-                    role: role,
-                },
-                cache: false,
-                success: function(response) {
-                    if (response.successCode == successCodes) {
-                        Notiflix.Report.Success( 'Notiflix Success', 
-                        '', 
-                        'Click' ); 
-                    } else {
-                        alert("Error occured !");
-                    }
-                }
-            });
-        } else {
-            alert('Please fill all the field !');
-        }
-    });
-    var updateModal = document.getElementById('updateModal');
-    updateModal.style.display = "flex";
+    openModal('updateModal');
 
-    window.onclick = function(event) {
-        if (event.target == updateModal) {
-        updateModal.style.display = "none";
-        }
-    }
 }
 
-function deleteRow(obj){
+function updateUser() {
 
-    var del_id=$(obj).data('id');
-    
-    $('#deleteRowBtn').on("click", function() { 
-        var id= del_id;
+    var id = $('#u_id').val();
+    var name = $('#u_email').val();
+    var email = $('#u_name').val();
+    var role = $('#u_role').val();
+
+    $.ajax({
+        url: "updateUser",
+        type: "POST",
+        data: {
+            id: id,
+            name: name,
+            email: email,
+            role: role,
+        },
+        success: function(response) {
+            console.log(response);
+            Notiflix.Report.Success(
+                'Success',
+                'User update succesful',
+                'Click');
+        }
+    });
+
+}
+
+function registerUser() {
+
+    var name = $('#name').val();
+    var email = $('#email').val();
+    var role = $('#role').val();
+    //   $("#butsave").attr("disabled", "disabled");
+    $.ajax({
+        url: 'registerUser',
+        type: 'POST',
+        data: {
+            name: name,
+            email: email,
+            role: role,
+        },
+        success: function(response) {
+            Notiflix.Report.Success(
+                'Success',
+                'User registration succesful',
+                'Click');
+            closeModal('registerModal');
+        },
+        error: function(error) {
+            var messages = error.responseJSON.msg;
+            for (let field in messages) {
+                $(`#${field}_error`).html(messages[field]);
+                $(`#${field}`).addClass('is-invalid');
+            }
+
+        }
+    });
+
+
+}
+
+
+function deleteRow(obj) {
+
+    var del_id = $(obj).data('id');
+
+    $('#deleteRowBtn').on("click", function() {
+        var id = del_id;
         var successCodes = 200;
-		$.ajax({
-			url: "deleteUser",
-			type: "GET",
-			cache: false,
-			data:{
+        $.ajax({
+            url: "deleteUser",
+            type: "GET",
+            cache: false,
+            data: {
                 id: id,
-			},
-			success: function(response){
-				if(response.successCode==successCodes){
-					location.reload();
-				}
-			}
-		});
-	});
+            },
+            success: function(response) {
+                if (response.successCode == successCodes) {
+                    location.reload();
+                }
+            }
+        });
+    });
 }
 
 $(document).ready(function() {
@@ -202,70 +233,22 @@ $(document).ready(function() {
                 var dataTable = $('#userTable').DataTable({});
             }
         },
-        error: function(data) {
-        }
+        error: function(data) {}
     });
 
-    $('#butsave').on('click', function() {
-        var name = $('#name').val();
-        var email = $('#email').val();
-        var role = $('#role').val();
-        if (name != "" && email != "" && role != "") {
-            //   $("#butsave").attr("disabled", "disabled");
-            $.ajax({
-                url: 'registerUser',
-                type: 'POST',
-                data: {
-                    name: name,
-                    email: email,
-                    role: role,
-                },
-                success: function(response) {
-                    if (response.successCode === 'success') {
-                        Notiflix.Report.Success( 
-                        'Success', 
-                        'User register succesful', 
-                        'Click' ); 
-                        window.location.reload(); 
-                    } else {
-                        Notiflix.Report.Failure( 
-                        'Failure', 
-                        'Email already taken', 
-                        'Click' );
-                        window.location.reload(); 
-                    }
-                },
-            });
-        } else {
-            alert('Please fill all the field !');
-        }
-    });    
+
+
 });
 
-
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function(e) {
-    modal.style.display = "flex";
+function openModal(id) {
+    $(`#${id}`)
+        .css("display", "flex")
+        .hide()
+        .fadeIn();
 }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
+function closeModal(id) {
+    $(`#${id}`).fadeOut();
 }
 </script>
 @endsection
