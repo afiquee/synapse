@@ -24,7 +24,7 @@
             <span onclick="closeModal('registerModal')" class="close">&times;</span>
         </div>
         <div class="modals-content">
-            <form method="POST" onsubmit="event.preventDefault(); registerUser()">
+            <form id="registerForm" method="POST" onsubmit="event.preventDefault(); registerUser()">
                 <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                 <div class="forms-wrap">
                     <div class="rows">
@@ -159,18 +159,16 @@ function updateUser() {
 
 function registerUser() {
 
-    var name = $('#name').val();
-    var email = $('#email').val();
-    var role = $('#role').val();
-    //   $("#butsave").attr("disabled", "disabled");
+    var formData = $("#registerForm").serializeArray(); 
+    for(let key in formData) {
+        $(`#${formData[key].name}_error`).html('');
+        $(`#${formData[key].name}`).removeClass('is-invalid');
+    }
+
     $.ajax({
         url: 'registerUser',
         type: 'POST',
-        data: {
-            name: name,
-            email: email,
-            role: role,
-        },
+        data: formData,
         success: function(response) {
             Notiflix.Report.Success(
                 'Success',
@@ -184,11 +182,8 @@ function registerUser() {
                 $(`#${field}_error`).html(messages[field]);
                 $(`#${field}`).addClass('is-invalid');
             }
-
         }
     });
-
-
 }
 
 
