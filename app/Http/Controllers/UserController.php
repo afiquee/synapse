@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\MatchOldPassword;
+use App\Rules\MatchOldPassword;
 use Illuminate\Support\Facades\Response;
 use Session;
 use DB;
@@ -76,33 +76,15 @@ class UserController extends Controller
             $this->successCode);     
     }
 
-    public function editprofile(Request $request){
-        $request->validate([
-            'new_password' => ['required'],
-            'new_confirm_password' => ['required|same:new_password'],
-            'current_password' => ['required', function ($attribute, $value, $fail) {
-                if (Hash::check($value == 'new_password')) {
-                    return $fail(__('The current password is incorrect.'));
-                }
-            }],
-        ]);
-        $input = $request->all(); 
-        $id = Auth::user()->id;
-        $input = User::where('id',$request->id)->update
-        ([
-        'password'        => $request->input('new_password'),
-        ]);
-    }
-
     public function update(Request $request) {
 
         $input = $request->all(); 
         $input['password'] = bcrypt('password123'); 
-        $input = User::where('id',$request->input('id'))->update
+        $input = User::where('id',$request->input('u_id'))->update
             ([
-            'name'             => $request->input('name'),
-            'email'            => $request->input('email'),
-            'role'             => $request->input('role'),
+            'name'             => $request->input('u_name'),
+            'email'            => $request->input('u_email'),
+            'role'             => $request->input('u_role'),
             ]);
         return response()->json(
             [
@@ -112,15 +94,46 @@ class UserController extends Controller
             $this->successCode);     
     }
 
+    public function editprofile(Request $request){
+        
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'old_password' => ['required', new MatchOldPassword],
+                'password1' => ['required'],
+                'password2' => ['same:password1'],
+            ],
+        );
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    "status" => "failed",
+                    "msg"    => $validator->errors()
+                ], 
+                $this->errorCode);
+        }
+
+        User::find(auth()->user()->id)->update
+        ([
+            'password'=> Hash::make($request->input('password1')),
+        ]);
+        return response()->json(
+            [
+                "status" => "success",
+                "msg" => "Register successful",
+            ],
+            $this->successCode);
+    }
+
     public function delete(Request $request) {
-        $input = $request->all();
-        $input = User::where('id',$request->input('id'))->delete();
-    return response()->json(
-        [
-            "status" => "success",
-            "msg" => "Register successful",
-        ],
-        $this->successCode);     
+        $request->all();
+        User::where('id',$request->input('id'))->delete();
+        return response()->json(
+            [
+                "status" => "success",
+                "msg" => "Register successful",
+            ],
+            $this->successCode);     
     }
    
 

@@ -70,7 +70,7 @@
             <span onclick="closeModal('updateModal')" class="close">&times;</span>
         </div>
         <div class="modals-content">
-            <form method="POST" onsubmit="event.preventDefault(); updateUser()">
+            <form id="updateForm" method="POST" onsubmit="event.preventDefault(); updateUser()">
                 <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                 <input type="hidden" name="u_id" id="u_id">
                 <div class="forms-wrap">
@@ -102,11 +102,9 @@
                         <button type="submit" class="btn btn-green"> {{ __('Update User') }}</button>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>
-
 </div>
 @endsection
 
@@ -132,26 +130,30 @@ function updateRow(obj) {
 
 function updateUser() {
 
-    var id = $('#u_id').val();
-    var name = $('#u_email').val();
-    var email = $('#u_name').val();
-    var role = $('#u_role').val();
+    var formData = $("#updateForm").serializeArray(); 
+
+    for(let key in formData) {
+        $(`#${formData[key].name}_error`).html('');
+        $(`#${formData[key].name}`).removeClass('is-invalid');
+    }
 
     $.ajax({
         url: "updateUser",
         type: "POST",
-        data: {
-            id: id,
-            name: name,
-            email: email,
-            role: role,
-        },
+        data: formData,
         success: function(response) {
             console.log(response);
             Notiflix.Report.Success(
                 'Success',
                 'User update succesful',
                 'Click');
+        },
+        error: function(error) {
+            var messages = error.responseJSON.msg;
+            for (let field in messages) {
+                $(`#${field}_error`).html(messages[field]);
+                $(`#${field}`).addClass('is-invalid');
+            }
         }
     });
 
@@ -160,6 +162,7 @@ function updateUser() {
 function registerUser() {
 
     var formData = $("#registerForm").serializeArray(); 
+    
     for(let key in formData) {
         $(`#${formData[key].name}_error`).html('');
         $(`#${formData[key].name}`).removeClass('is-invalid');
@@ -174,7 +177,7 @@ function registerUser() {
                 'Success',
                 'User registration succesful',
                 'Click');
-            closeModal('registerModal');
+            closeModal('registerModal');   
         },
         error: function(error) {
             var messages = error.responseJSON.msg;
@@ -184,30 +187,34 @@ function registerUser() {
             }
         }
     });
-}
 
+}
 
 function deleteRow(obj) {
 
     var del_id = $(obj).data('id');
 
-    $('#deleteRowBtn').on("click", function() {
-        var id = del_id;
-        var successCodes = 200;
-        $.ajax({
-            url: "deleteUser",
-            type: "GET",
-            cache: false,
-            data: {
-                id: id,
+    Notiflix.Confirm.Show(
+        'Confirmation',
+        'Are you sure you want to delete?',
+        'Yes','No',
+            function(){
+                var id = del_id;
+                $.ajax({
+                    url: "deleteUser",
+                    type: "GET",
+                    cache: false,
+                    data: {
+                        id: id,
+                        },
+                         success: function(response) {
+                            location.reload();
+                    }
+                });      
             },
-            success: function(response) {
-                if (response.successCode == successCodes) {
-                    location.reload();
-                }
-            }
-        });
-    });
+            function(){}
+    );
+
 }
 
 $(document).ready(function() {
@@ -230,8 +237,6 @@ $(document).ready(function() {
         },
         error: function(data) {}
     });
-
-
 
 });
 
