@@ -79,16 +79,9 @@
                         <label class="input-label" for="state">State</label>
                         <select id="type" name="type" class="input-select">
                             <option value="">Select State</option>
-                            <option value="Johor">Johor</option>
-                            <option value="Kedah">Kedah</option>
-                        </select>
-                    </div>
-                    <div class="cols">
-                        <label class="input-label" for="state">State</label>
-                        <select id="type" name="type" class="input-select">
-                            <option value="">Select State</option>
-                            <option value="Johor">Johor</option>
-                            <option value="Kedah">Kedah</option>
+                            @foreach($states as $state)
+                            <option value="{{ $state->id }}">{{ $state->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -118,7 +111,7 @@
                 <h3><i class="fas fa-medal"></i>Item</h3>
                 <hr class="hr-major">
 
-                <div class="rows cb-rows">
+                <div class="rows cb-rows justify-start">
                     <div class="cb-cols">
                         <input type="checkbox" onclick="toggleSection('keychain_container')" name="keychain_toggle"
                             class="input-checkbox">
