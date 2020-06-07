@@ -18,6 +18,7 @@ class CreateUploadsTable extends Migration
             $table->integer('item_id')->constrained('items');
             $table->string('filename');
             $table->string('location');
+            $table->string('active_status')->default('A');
             $table->timestamp('created_at')->nullable();
             $table->integer('created_by')->nullable()->constrained('users');
             $table->timestamp('updated_at')->nullable();

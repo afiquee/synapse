@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->dateTime('deadline');
             $table->string('payment_type');
+            $table->string('active_status')->default('A');
             $table->integer('created_by')->nullable()->constrained('users');
             $table->timestamp('updated_at')->nullable();
             $table->integer('updated_by')->nullable()->constrained('users');

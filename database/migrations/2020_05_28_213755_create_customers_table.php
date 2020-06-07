@@ -22,6 +22,7 @@ class CreateCustomersTable extends Migration
             $table->string('postcode')->nullable();
             $table->string('city')->nullable();
             $table->integer('state_id')->nullable()->constrained('states');
+            $table->string('active_status')->default('A');
             $table->integer('created_by')->nullable()->constrained('users');
             $table->timestamp('updated_at')->nullable();
             $table->integer('updated_by')->nullable()->constrained('users');

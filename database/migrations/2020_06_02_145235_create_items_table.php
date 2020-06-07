@@ -20,7 +20,13 @@ class CreateItemsTable extends Migration
             $table->string('shape');
             $table->integer('quantity');
             $table->string('value');
-            $table->timestamps();
+            $table->string('active_status')->default('A');
+            $table->timestamp('created_at')->nullable();
+            $table->integer('created_by')->nullable()->constrained('users');
+            $table->timestamp('updated_at')->nullable();
+            $table->integer('updated_by')->nullable()->constrained('users');
+            $table->timestamp('deleted_at')->nullable();
+            $table->integer('deleted_by')->nullable()->constrained('users');
         });
     }
 
