@@ -16,10 +16,12 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->integer('order_id')->constrained('orders');
-            $table->string('type');
-            $table->string('shape');
+            $table->string('category');
+            $table->string('type')->nullable();
+            $table->string('shape')->nullable();
             $table->integer('quantity');
             $table->string('value');
+            $table->string('tracking_no')->nullable();
             $table->string('active_status')->default('A');
             $table->timestamp('created_at')->nullable();
             $table->integer('created_by')->nullable()->constrained('users');

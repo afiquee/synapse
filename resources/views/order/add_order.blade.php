@@ -33,7 +33,7 @@
                         <label class="input-label" for="full_name">Full Name *</label>
                         <input name="full_name" id="full_name"
                             class="input-text @error('full_name') is-invalid @enderror" value="{{ old('full_name') }}"
-                            type="text" placeholder="Full Name" required disabled />
+                            type="text" placeholder="Full Name" required />
                         @error('full_name')
                         <label class="label-error">{{ $message }}</label>
                         @enderror
@@ -41,7 +41,7 @@
                     <div class="cols">
                         <label class="input-label" for="email">Email</label>
                         <input name="email" id="email" class="input-text @error('email') is-invalid @enderror"
-                            value="{{ old('email') }}" type="text" placeholder="Email" required disabled />
+                            value="{{ old('email') }}" type="text" placeholder="Email" required />
                         @error('email')
                         <label class="label-error">{{ $message }}</label>
                         @enderror

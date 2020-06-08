@@ -19,6 +19,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('/dashboard', 'DashboardController@showDashboard')->name('dashboard');
+// dashboard
 
 // user 
 Route::get('/user', 'UserController@index')->name('user');

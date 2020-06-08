@@ -15,7 +15,8 @@ class CreateStatusTable extends Migration
     {
         Schema::create('status', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->string('name');
+            $table->string('type')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->integer('created_by')->nullable()->constrained('users');
         });

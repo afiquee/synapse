@@ -1,0 +1,24 @@
+<?php
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class StatusSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        DB::table('status')->insert([
+            ['name' => 'To Be Confirmed'],
+            ['name' => 'Design Confirmed'],
+            ['name' => 'Start Production'],
+            ['name' => 'Ready For Collection'],
+            ['name' => 'Delivered'],
+            ['name' => 'Canceled'],
+        ]);
+    }
+}
