@@ -38,7 +38,7 @@
             </div>
             <ul class="nav-list">
                 <li class="nav-item">
-                    <a class="{{ Route::currentRouteNamed('home') ? 'nav-active' : '' }}" href="{{ route('dashboard') }}"><i
+                    <a class="{{ Route::currentRouteNamed('dashboard') ? 'nav-active' : '' }}" href="{{ route('dashboard') }}"><i
                             class="far fa-chart-bar icon"></i>{{ __('Dashboard') }}</a>
                 </li>
                 <li class="nav-item">

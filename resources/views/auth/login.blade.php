@@ -22,43 +22,46 @@
 <body>
 
     <div class="containers">
-
-        <div class="cards cards-sm">
-            <div class="cards-header">
-                <h4 class="align-left">{{ __('User Login') }}</h4>
-            </div>
-            <div class="cards-content">
-                <form method="POST" action="{{ route('loginUser') }}">
-                    @csrf
-                    <div class="forms-wrap">
-                        <div class="rows">
-                            <div class="cols">
-                                <label class="input-label" for="planet">Email</label>
-                                <input name="email" id="email"
-                                    class="input-text @if ($errors->any()) is-invalid  @endif"
-                                    value="{{ old('email') }}" type="text" placeholder="Email" required />
-                                @if ($errors->any())
-                                <label class="label-error"> {{ $errors->first() }} </label>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="rows">
-                            <div class="cols">
-                                <label class="input-label">Password</label>
-                                <input name="password" id="password"
-                                    class="input-text  @if ($errors->any()) is-invalid  @endif" type="password"
-                                    placeholder="Password" required />
-                            </div>
-                        </div>
-                        <div class="full-input">
-                            <button type="submit" class="btn btn-green"> {{ __('Login') }}</button>
-                        </div>
+        <div class="row">
+            <div class="col-sm">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="align-left">{{ __('User Login') }}</h4>
                     </div>
-                </form>
+                    <div class="card-content">
+                        <form method="POST" action="{{ route('loginUser') }}">
+                            @csrf
+                            <div class="form-wrap">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label class="input-label" for="planet">Email</label>
+                                        <input name="email" id="email"
+                                            class="input-text @if ($errors->any()) is-invalid  @endif"
+                                            value="{{ old('email') }}" type="text" placeholder="Email" required />
+                                        @if ($errors->any())
+                                        <label class="label-error"> {{ $errors->first() }} </label>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label class="input-label">Password</label>
+                                        <input name="password" id="password"
+                                            class="input-text  @if ($errors->any()) is-invalid  @endif" type="password"
+                                            placeholder="Password" required />
+                                    </div>
+                                </div>
+                                <div class="full-input">
+                                    <button type="submit" class="btn btn-green"> {{ __('Login') }}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
+    </div>
 </body>
 
 </html>

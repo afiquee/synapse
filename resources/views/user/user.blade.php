@@ -2,19 +2,24 @@
 
 @section('content')
 <div class="containers">
-    <div class="cards cards-lg">
-        <div class="cards-header">
-            <h4 class="align-left">{{ __('Users') }}</h4>
-            <button class="btn btn-green" data-id="#myModal" onclick="openModal('registerModal')"><i
-                    class="fas fa-plus"></i>Add
-                User</button>
-        </div>
-        <div class="cards-content table-content">
-            <div id="tableData">
+    <div class="row">
+        <div class="col-lg">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="align-left">{{ __('Users') }}</h4>
+                    <button class="btn btn-green" data-id="#myModal" onclick="openModal('registerModal')"><i
+                            class="fas fa-plus"></i>Add
+                        User</button>
+                </div>
+                <div class="card-content table-content">
+                    <div id="tableData">
 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
 
 <div id="registerModal" class="modals">
@@ -27,23 +32,23 @@
             <form id="registerForm" method="POST" onsubmit="event.preventDefault(); registerUser()">
                 <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                 <div class="forms-wrap">
-                    <div class="rows">
-                        <div class="cols">
+                    <div class="row">
+                        <div class="col">
                             <label class="input-label" for="email">Email</label>
                             <input name="email" id="email" class="input-text" value="{{ old('email') }}" type="text"
                                 placeholder="Email" required />
                             <label id="email_error" class="label-error"></label>
                         </div>
                     </div>
-                    <div class="rows">
-                        <div class="cols">
+                    <div class="row">
+                        <div class="col">
                             <label class="input-label" for="name">Name</label>
                             <input name="name" id="name" class="input-text" type="text" placeholder="Name" required />
                             <label id="name_error" class="label-error"></label>
                         </div>
                     </div>
-                    <div class="rows">
-                        <div class="cols">
+                    <div class="row">
+                        <div class="col">
                             <label class="input-label" for="role">Role</label>
                             <select id="role" name="role" class="input-select">
                                 <option value="Production">Production</option>
@@ -52,7 +57,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="rows">
+                    <div class="row">
                         <button type="submit" id="butsave" class="btn btn-green"> {{ __('Register') }}</button>
                     </div>
                 </div>
@@ -74,22 +79,22 @@
                 <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                 <input type="hidden" name="u_id" id="u_id">
                 <div class="forms-wrap">
-                    <div class="rows">
-                        <div class="cols">
+                    <div class="row">
+                        <div class="col">
                             <label class="input-label" for="email">Email</label>
                             <input name="u_email" id="u_email" class="input-text" value="{{ old('email') }}" type="text"
                                 placeholder="Email" required />
                         </div>
                     </div>
-                    <div class="rows">
-                        <div class="cols">
+                    <div class="row">
+                        <div class="col">
                             <label class="input-label" for="name">Name</label>
                             <input name="u_name" id="u_name" class="input-text" type="text" placeholder="Name"
                                 required />
                         </div>
                     </div>
-                    <div class="rows">
-                        <div class="cols">
+                    <div class="row">
+                        <div class="col">
                             <label class="input-label" for="role">Role</label>
                             <select id="u_role" name="u_role" class="input-select">
                                 <option value="Production">Production</option>
@@ -98,7 +103,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="rows">
+                    <div class="row">
                         <button type="submit" class="btn btn-green"> {{ __('Update User') }}</button>
                     </div>
                 </div>
@@ -130,9 +135,9 @@ function updateRow(obj) {
 
 function updateUser() {
 
-    var formData = $("#updateForm").serializeArray(); 
+    var formData = $("#updateForm").serializeArray();
 
-    for(let key in formData) {
+    for (let key in formData) {
         $(`#${formData[key].name}_error`).html('');
         $(`#${formData[key].name}`).removeClass('is-invalid');
     }
@@ -161,9 +166,9 @@ function updateUser() {
 
 function registerUser() {
 
-    var formData = $("#registerForm").serializeArray(); 
-    
-    for(let key in formData) {
+    var formData = $("#registerForm").serializeArray();
+
+    for (let key in formData) {
         $(`#${formData[key].name}_error`).html('');
         $(`#${formData[key].name}`).removeClass('is-invalid');
     }
@@ -177,7 +182,7 @@ function registerUser() {
                 'Success',
                 'User registration succesful',
                 'Click');
-            closeModal('registerModal');   
+            closeModal('registerModal');
         },
         error: function(error) {
             var messages = error.responseJSON.msg;
@@ -197,22 +202,22 @@ function deleteRow(obj) {
     Notiflix.Confirm.Show(
         'Confirmation',
         'Are you sure you want to delete?',
-        'Yes','No',
-            function(){
-                var id = del_id;
-                $.ajax({
-                    url: "deleteUser",
-                    type: "GET",
-                    cache: false,
-                    data: {
-                        id: id,
-                        },
-                         success: function(response) {
-                            location.reload();
-                    }
-                });      
-            },
-            function(){}
+        'Yes', 'No',
+        function() {
+            var id = del_id;
+            $.ajax({
+                url: "deleteUser",
+                type: "GET",
+                cache: false,
+                data: {
+                    id: id,
+                },
+                success: function(response) {
+                    location.reload();
+                }
+            });
+        },
+        function() {}
     );
 
 }

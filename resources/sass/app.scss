@@ -1,6 +1,10 @@
 @import "variables";
 @import "datatable";
 
+$testblue: #2a00e7;
+$testgreen: #00ff37;
+$testred: #ff0000;
+
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 :root {
@@ -216,10 +220,21 @@ html {
 
   // Flexbox container
   .containers {
+    @media only screen and (min-width: 1024px) {
+      width:  90vw;
+    }
+    @media only screen and (min-width: 768px) {
+      width:  80vw;
+    }
+    width:  90vw;
+    font-size: .85rem;
     padding-top:5%;
     display: flex;
     flex-wrap: wrap;
+    background-color: $testblue;
+    
     flex: 1 1 auto;
+    align-items: center;
     justify-content: center;
     padding-bottom: 10vh;
     
@@ -236,46 +251,27 @@ html {
 
   }
 
-  .cards-sm {
-    @media only screen and (min-width: 1024px) {
-      width: 500px;
-    }
-    @media only screen and (min-width: 768px) {
-      width: 500px;
-    }
-    width: 90vw;
-  }
-
-  .cards-lg {
-    @media only screen and (min-width: 1024px) {
-      max-width: 80vw;
-    }
-    @media only screen and (min-width: 768px) {
-      max-width: 65vw;
-    }
-    width: 90vw;
-  }
-
   
-  // cards UI
+  // card UI
   
-  .cards {
+  .card {
     color: $text-primary;
-    display: flexbox;
+    display: flex;
+    flex: 1 1 auto;
     background-color: $white;
     flex-direction: column;
     border-radius: $border-rounded;
     box-shadow: 0 10px 40px -14px rgba(0,0,0,0.25);
     text-align: center;
 
-    .cards-header {
+    .card-header {
         display: flex;
         justify-content: space-between;
         width: 100%;
         border-bottom: 1px solid #dddddd;
     }
 
-    .cards-content {
+    .card-content {
         padding: 1rem;
         display: flex;
         flex-wrap: wrap;
@@ -285,7 +281,7 @@ html {
     .table-content {
       padding:0;
     }
-    .cards-title {
+    .card-title {
         color: $blue;
         font-size: 1.8em;
         line-height: 1.5em;
@@ -293,7 +289,7 @@ html {
         margin-top: 0;
     }
   
-    .cards-body {
+    .card-body {
       font-size: 1.1em;
       line-height: 1.6em;
       color: $dark-gray;
@@ -377,28 +373,65 @@ html {
     padding: 10px;
   }
 
-  .always-rows {
+  .col-lg {
+    display:flex;
+    background-color: $testred;
+    padding: 2rem;
+    @media only screen and (min-width: 1024px) {
+      max-width: 80vw;
+    }
+    @media only screen and (min-width: 768px) {
+      max-width: 65vw;
+    }
+    width: 80vw;
+  }
+  .col-sm {
+    @media only screen and (min-width: 1024px) {
+      max-width: 600px;
+    }
+    @media only screen and (min-width: 768px) {
+      max-width: 500px;
+    }
+    min-width: 500px;
+    background-color: $testred;
+    padding: 1rem;
+    display:flex;
+    flex: 1;
+    flex-direction: row;
+    justify-content: center;
+
+  }
+
+  .always-row {
     align-content: center;
     @media only screen and (max-width: 768px) {
-      flex-direction: rows;
+      flex-direction: row;
     }
   }
 
-  .rows {
+  .center {
+    align-items: center;
+  }
+
+  .row {
+    background-color: $testgreen;
     padding: 10px;
+    padding-left: 3rem;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    
 
     @media only screen and (max-width: 768px) {
       flex-direction: column;
     }
   }
 
-  .cb-rows {
+  .cb-row {
     @media only screen and (max-width: 768px) {
-      flex-direction: rows;
+      flex-direction: row;
     }
   }
 
@@ -406,7 +439,7 @@ html {
     padding: 0px;
   }
 
-  .cols {
+  .form-group {
     display: flex;
     margin: 5px;
     flex: 1;
@@ -415,9 +448,9 @@ html {
     }
   }
 
-  .cb-cols {
+  .cb-group {
     display: flex;
-    flex-direction: rows;
+    flex-direction: row;
   }
 
 
