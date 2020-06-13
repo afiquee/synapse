@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Upload extends Model
 {
     protected $fillable = [
-        'type', 'quantity', 'value',
+        'filename', 'location', 'value',
     ];
 
     protected $casts = [

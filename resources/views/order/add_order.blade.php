@@ -10,7 +10,7 @@
                     <h4 class="align-left">{{ __('New Order') }}</h4>
                 </div>
                 <div class="card-content">
-                    <form id="registerForm" method="POST" onsubmit="event.preventDefault(); registerUser()">
+                    <form id="orderForm" method="POST" onsubmit="event.preventDefault(); ordersForm()">
                         @csrf
                         <h3><i class="fas fa-user"></i>Customer</h3>
                         <hr class="hr-major">
@@ -20,12 +20,11 @@
                                     <label class="input-label" for="phone">Phone Number *</label>
                                     <label id="customer_status" class="label-success"></label>
                                 </div>
+                                <!-- <input name="phone" id="phone" class="input-text @error('phone') is-invalid @enderror"
+                                    value="{{ old('phone') }}" type="text" placeholder="Phone Number" required/> -->
                                 <input name="phone" id="phone" class="input-text @error('phone') is-invalid @enderror"
                                     value="{{ old('phone') }}" type="text" placeholder="Phone Number" required
                                    onkeyup="checkExistingCustomer()" />
-                                   <!-- <input name="phone" id="phone" class="input-text @error('phone') is-invalid @enderror"
-                                    value="{{ old('phone') }}" type="text" placeholder="Phone Number" required
-                                   onkeyup="checkExistingCustomer()" /> -->
                                 @error('phone')
                                 <label class="label-error">{{ $message }}</label>
                                 @enderror
@@ -36,10 +35,10 @@
                         </div>
                         <div class="row">
                             <div class="form-group">
-                                <label class="input-label" for="full_name">Full Name *</label>
-                                <input name="full_name" id="full_name"
-                                    class="input-text @error('full_name') is-invalid @enderror"
-                                    value="{{ old('full_name') }}" type="text" placeholder="Full Name" required />
+                                <label class="input-label" for="name">Full Name *</label>
+                                <input name="name" id="name"
+                                    class="input-text @error('name') is-invalid @enderror"
+                                    value="{{ old('name') }}" type="text" placeholder="Full Name" required />
                                 @error('full_name')
                                 <label class="label-error">{{ $message }}</label>
                                 @enderror
@@ -106,8 +105,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="input-label" for="type">Payment Type *</label>
-                                <select id="type" name="type" class="input-select">
+                                <label class="input-label" for="payment_type">Payment Type *</label>
+                                <select id="payment_type" name="payment_type" class="input-select">
                                     <option value="50%">50%</option>
                                     <option value="100%">100%</option>
                                     <option value="PO">PO</option>
@@ -120,7 +119,7 @@
                         <h3><i class="fas fa-medal"></i>Item</h3>
                         <hr class="hr-major">
 
-                        <div class="row cb-row justify-start">
+                        <!-- <div class="row cb-row justify-start">
                             <div class="cb-group">
                                 <input type="checkbox" onclick="toggleSection('keychain_container')"
                                     name="keychain_toggle" class="input-checkbox">
@@ -141,9 +140,9 @@
                                     class="input-checkbox">
                                 <label class="input-label" for="custom_toggle">Custom</label>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div id="keychain_container" style="transition: all 0.2s ease-in;" class="section-item">
+                        <!-- <div id="keychain_container" style="transition: all 0.2s ease-in;" class="section-item">
                             <h4></i>Keychain</h4>
                             <hr class="hr-minor">
                             <div class="row">
@@ -210,17 +209,17 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="form-group">
                                     <div class="custom-file-upload">
                                         <label class="input-label" for="file">Keychain Files</label>
                                         <input type="file" id="keychain_files" name="keychain_files[]" multiple />
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div> -->
+                        </div> -->
 
-                        <div id="medal_container" class="section-item">
+                        <!-- <div id="medal_container" class="section-item">
                             <h4></i>Medal</h4>
                             <hr class="hr-minor">
                             <div class="row">
@@ -350,7 +349,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="row">
                             <button type="submit" class="btn btn-green"> {{ __('Submit') }}</button>
@@ -372,6 +371,38 @@
 
 function toggleSection(section) {
     $(`#${section}`).toggleClass('section-active');
+}
+
+
+function ordersForm() {
+
+var formData = $("#orderForm").serializeArray();
+
+for (let key in formData) {
+    $(`#${formData[key].name}_error`).html('');
+    $(`#${formData[key].name}`).removeClass('is-invalid');
+}
+
+$.ajax({
+    url: "orderForms",
+    type: "POST",
+    data: formData,
+    success: function(response) {
+        console.log(response);
+        Notiflix.Report.Success(
+            'Success',
+            'Order succesful',
+            'Click');
+    },
+    error: function(error) {
+        var messages = error.responseJSON.msg;
+        for (let field in messages) {
+            $(`#${field}_error`).html(messages[field]);
+            $(`#${field}`).addClass('is-invalid');
+        }
+    }
+});
+
 }
 
 function checkExistingCustomer() {

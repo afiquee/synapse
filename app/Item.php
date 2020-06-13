@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Item extends Model
 {
     protected $fillable = [
-        'deadline', 'payment_type',
+        'type', 'shape', 'quantity', 'value',
     ];
 
     protected $casts = [
