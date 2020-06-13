@@ -10,7 +10,7 @@
                     <h4 class="align-left">{{ __('New Order') }}</h4>
                 </div>
                 <div class="card-content">
-                    <form method="POST" action="{{ route('loginUser') }}">
+                    <form id="registerForm" method="POST" onsubmit="event.preventDefault(); registerUser()">
                         @csrf
                         <h3><i class="fas fa-user"></i>Customer</h3>
                         <hr class="hr-major">
@@ -22,7 +22,10 @@
                                 </div>
                                 <input name="phone" id="phone" class="input-text @error('phone') is-invalid @enderror"
                                     value="{{ old('phone') }}" type="text" placeholder="Phone Number" required
-                                    onkeyup="checkExistingCustomer()" />
+                                   onkeyup="checkExistingCustomer()" />
+                                   <!-- <input name="phone" id="phone" class="input-text @error('phone') is-invalid @enderror"
+                                    value="{{ old('phone') }}" type="text" placeholder="Phone Number" required
+                                   onkeyup="checkExistingCustomer()" /> -->
                                 @error('phone')
                                 <label class="label-error">{{ $message }}</label>
                                 @enderror
@@ -351,7 +354,6 @@
 
                         <div class="row">
                             <button type="submit" class="btn btn-green"> {{ __('Submit') }}</button>
-                            <button type="button" onclick="notify()" class="btn btn-green"> {{ __('ALert') }}</button>
                         </div>
                     </form>
                 </div>
@@ -366,29 +368,7 @@
 @section('scripts')
 
 <script>
-function notify() {
-    Notiflix.Loading.Init({
-        messageform - groupor: '#fff',
-        svgSize: '100px',
-        clickToClose: true,
-    });
 
-    setTimeout(function() {
-        Notiflix.Report.Success(
-            'Successful',
-            'Order created',
-            'Okay',
-            function() {
-
-                //window.location.href = "{{ URL::to('addOrder') }}"
-            },
-            function() {
-                // No button callback alert('If you say so...'); 
-            }
-        );
-    }, 500);
-
-}
 
 function toggleSection(section) {
     $(`#${section}`).toggleClass('section-active');
