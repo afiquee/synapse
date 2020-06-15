@@ -785,12 +785,12 @@ h4 {
 }
 
 .containers {
-  width: 90vw;
+  width: 100vw;
   font-size: 0.85rem;
   padding-top: 5%;
   display: flex;
   flex-wrap: wrap;
-  background-color: #2a00e7;
+  background-color: none;
   flex: 1 1 auto;
   align-items: center;
   justify-content: center;
@@ -799,13 +799,13 @@ h4 {
 
 @media only screen and (min-width: 1024px) {
   .containers {
-    width: 90vw;
+    width: calc(100vw - 15rem );
   }
 }
 
 @media only screen and (min-width: 768px) {
   .containers {
-    width: 80vw;
+    width: calc(100vw - 15rem );
   }
 }
 
@@ -951,7 +951,7 @@ h4 {
 
 .col-lg {
   display: flex;
-  background-color: #ff0000;
+  background-color: none;
   padding: 2rem;
   width: 80vw;
 }
@@ -969,8 +969,8 @@ h4 {
 }
 
 .col-sm {
-  min-width: 500px;
-  background-color: #ff0000;
+  min-width: 300px;
+  background-color: none;
   padding: 1rem;
   display: flex;
   flex: 1;
@@ -1005,7 +1005,7 @@ h4 {
 }
 
 .row {
-  background-color: #00ff37;
+  background-color: none;
   padding: 10px;
   padding-left: 3rem;
   display: flex;
