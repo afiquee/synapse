@@ -37,6 +37,7 @@ Route::get('/deleteUser', 'UserController@delete')->name('deleteUser');
 //order
 Route::get('/order', 'OrderController@index')->name('order');
 Route::get('/addOrder', 'OrderController@addOrder')->name('addOrder');
+Route::post('/orderForms', 'OrderController@orderData')->name('orderForms');
 
 //customer
 Route::post('/getCustomerByPhone', 'CustomerController@getCustomerByPhone')->name('getCustomerByPhone');
