@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration
             $table->string('active_status')->default('A');
             $table->integer('customer_id')->constrained('customers');
             $table->timestamp('created_at')->nullable();
-            $table->integer('created_by')->nullable()->constrained('users');
+            $table->integer('created_by')->constrained('users');
             $table->timestamp('updated_at')->nullable();
             $table->integer('updated_by')->nullable()->constrained('users');
             $table->timestamp('deleted_at')->nullable();
