@@ -18,10 +18,13 @@ class CreateItemsTable extends Migration
             $table->integer('order_id')->constrained('orders');
             $table->string('category');
             $table->string('type')->nullable();
+            $table->string('keyring')->nullable();
+            $table->string('heatpress')->nullable();
             $table->string('shape')->nullable();
             $table->integer('quantity');
             $table->string('value');
             $table->string('tracking_no')->nullable();
+            $table->string('fileupload')->nullable();
             $table->string('active_status')->default('A');
             $table->timestamp('created_at')->nullable();
             $table->integer('created_by')->nullable()->constrained('users');

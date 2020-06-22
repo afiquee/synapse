@@ -119,7 +119,7 @@
                         <h3><i class="fas fa-medal"></i>Item</h3>
                         <hr class="hr-major">
 
-                        <!-- <div class="row cb-row justify-start">
+                        <div class="row cb-row justify-start">
                             <div class="cb-group">
                                 <input type="checkbox" onclick="toggleSection('keychain_container')"
                                     name="keychain_toggle" class="input-checkbox">
@@ -140,9 +140,9 @@
                                     class="input-checkbox">
                                 <label class="input-label" for="custom_toggle">Custom</label>
                             </div>
-                        </div> -->
+                        </div>
 
-                        <!-- <div id="keychain_container" style="transition: all 0.2s ease-in;" class="section-item">
+                        <div id="keychain_container" style="transition: all 0.2s ease-in;" class="section-item">
                             <h4></i>Keychain</h4>
                             <hr class="hr-minor">
                             <div class="row">
@@ -189,17 +189,16 @@
                             </div>
                             <div class="row cb-row">
                                 <div class="cb-group">
-                                    <input type="checkbox" class="input-checkbox">
+                                    <input type="checkbox" value="keyring" name="keyring" id="keyring" class="input-checkbox">
                                     <label class="input-label" for="type">Include Keyring</label>
                                 </div>
                                 <div class="form-group">
-
                                     @error('type')
                                     <label class="label-error">{{ $message }}</label>
                                     @enderror
                                 </div>
                                 <div class="cb-group">
-                                    <input type="checkbox" class="input-checkbox">
+                                    <input type="checkbox" value="heatpress" name="heatpress" id="heatpress" class="input-checkbox">
                                     <label class="input-label" for="type">Require Heatpress</label>
                                 </div>
                                 <div class="form-group">
@@ -217,7 +216,7 @@
                                     </div>
                                 </div>
                             </div> -->
-                        </div> -->
+                        </div>
 
                         <!-- <div id="medal_container" class="section-item">
                             <h4></i>Medal</h4>
