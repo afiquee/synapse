@@ -10,7 +10,7 @@
                     <h4 class="align-left">{{ __('New Order') }}</h4>
                 </div>
                 <div class="card-content">
-                    <form id="orderForm" method="POST" novalidate onsubmit="event.preventDefault(); ordersForm()" enctype="multipart/form-data">
+                    <form id="orderForm" method="POST" novalidate enctype="multipart/form-data">
                         @csrf
                         <h3><i class="fas fa-user"></i>Customer</h3>
                         <hr class="hr-major">
@@ -22,9 +22,7 @@
                                 </div>
                                 <!-- <input name="phone" id="phone" class="input-text @error('phone') is-invalid @enderror"
                                     value="{{ old('phone') }}" type="text" placeholder="Phone Number" required/> -->
-                                <input name="phone" id="phone" class="input-text @error('phone') is-invalid @enderror"
-                                    value="{{ old('phone') }}" type="text" placeholder="Phone Number" required
-                                   onkeyup="checkExistingCustomer()" />
+                                <input name="phone" id="phone" class="input-text @error('phone') is-invalid @enderror" value="{{ old('phone') }}" type="text" placeholder="Phone Number" required onkeyup="checkExistingCustomer()" />
                                 @error('phone')
                                 <label class="label-error">{{ $message }}</label>
                                 @enderror
@@ -36,17 +34,14 @@
                         <div class="row">
                             <div class="form-group">
                                 <label class="input-label" for="name">Full Name *</label>
-                                <input name="name" id="name"
-                                    class="input-text @error('name') is-invalid @enderror"
-                                    value="{{ old('name') }}" type="text" placeholder="Full Name" required />
+                                <input name="name" id="name" class="input-text @error('name') is-invalid @enderror" value="{{ old('name') }}" type="text" placeholder="Full Name" required />
                                 @error('full_name')
                                 <label class="label-error">{{ $message }}</label>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label class="input-label" for="email">Email</label>
-                                <input name="email" id="email" class="input-text @error('email') is-invalid @enderror"
-                                    value="{{ old('email') }}" type="text" placeholder="Email" required />
+                                <input name="email" id="email" class="input-text @error('email') is-invalid @enderror" value="{{ old('email') }}" type="text" placeholder="Email" required />
                                 @error('email')
                                 <label class="label-error">{{ $message }}</label>
                                 @enderror
@@ -55,9 +50,7 @@
                         <div class="row">
                             <div class="form-group">
                                 <label class="input-label" for="address">Address</label>
-                                <input name="address" id="address"
-                                    class="input-text @error('address') is-invalid @enderror"
-                                    value="{{ old('address') }}" type="text" placeholder="Address" required />
+                                <input name="address" id="address" class="input-text @error('address') is-invalid @enderror" value="{{ old('address') }}" type="text" placeholder="Address" required />
                                 @error('address')
                                 <label class="label-error">{{ $message }}</label>
                                 @enderror
@@ -67,17 +60,14 @@
 
                             <div class="form-group">
                                 <label class="input-label" for="postcode">Postcode</label>
-                                <input name="postcode" id="postcode"
-                                    class="input-text @error('full_name') is-invalid @enderror"
-                                    value="{{ old('postcode') }}" type="text" placeholder="Postcode" required />
+                                <input name="postcode" id="postcode" class="input-text @error('full_name') is-invalid @enderror" value="{{ old('postcode') }}" type="text" placeholder="Postcode" required />
                                 @error('postcode')
                                 <label class="label-error">{{ $message }}</label>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label class="input-label" for="full_name">City</label>
-                                <input name="city" id="city" class="input-text @error('city') is-invalid @enderror"
-                                    value="{{ old('city') }}" type="text" placeholder="City" required />
+                                <input name="city" id="city" class="input-text @error('city') is-invalid @enderror" value="{{ old('city') }}" type="text" placeholder="City" required />
                                 @error('city')
                                 <label class="label-error">{{ $message }}</label>
                                 @enderror
@@ -97,9 +87,7 @@
                         <div class="row">
                             <div class="form-group">
                                 <label class="input-label" for="deadline">Project Deadline *</label>
-                                <input name="deadline" id="deadline"
-                                    class="input-text @error('deadline') is-invalid @enderror"
-                                    value="{{ old('deadline') }}" type="date" placeholder="Project Deadline" required />
+                                <input name="deadline" id="deadline" class="input-text @error('deadline') is-invalid @enderror" value="{{ old('deadline') }}" type="date" placeholder="Project Deadline" required />
                                 @error('deadline')
                                 <label class="label-error">{{ $message }}</label>
                                 @enderror
@@ -121,23 +109,19 @@
 
                         <div class="row cb-row justify-start">
                             <div class="cb-group">
-                                <input type="checkbox" onclick="toggleSection('keychain_container')"
-                                    name="keychain_toggle" id="keychain_toggle" value="keychain" class="input-checkbox">
+                                <input type="checkbox" onclick="toggleSection('keychain_container')" name="keychain_toggle" id="keychain_toggle" value="keychain" class="input-checkbox">
                                 <label class="input-label" for="keychain_toggle">Keychain</label>
                             </div>
                             <div class="cb-group">
-                                <input type="checkbox" onclick="toggleSection('medal_container')" 
-                                    name="medal_toggle" id="medal_toggle" value="medal" class="input-checkbox">
+                                <input type="checkbox" onclick="toggleSection('medal_container')" name="medal_toggle" id="medal_toggle" value="medal" class="input-checkbox">
                                 <label class="input-label" name="medal_toggle" id="medal_toggle" value="medal_toggle" for="medal_toggle">Medal</label>
                             </div>
                             <div class="cb-group">
-                                <input type="checkbox" onclick="toggleSection('lanyard_container')"
-                                name="lanyard_toggle" id="lanyard_toggle" value="lanyard" class="input-checkbox">
+                                <input type="checkbox" onclick="toggleSection('lanyard_container')" name="lanyard_toggle" id="lanyard_toggle" value="lanyard" class="input-checkbox">
                                 <label class="input-label" name="lanyard_toggle" id="lanyard_toggle" value="lanyard" for="lanyard_toggle">Lanyard</label>
                             </div>
                             <div class="cb-group">
-                                <input type="checkbox" onclick="toggleSection('custom_container')" name="custom_toggle" id="custom_toggle" value="custom"
-                                    class="input-checkbox">
+                                <input type="checkbox" onclick="toggleSection('custom_container')" name="custom_toggle" id="custom_toggle" value="custom" class="input-checkbox">
                                 <label class="input-label" name="custom_toggle" id="custom_toggle" value="custom" for="custom_toggle">Custom</label>
                             </div>
                         </div>
@@ -170,18 +154,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="input-label" for="quantity">Quantity *</label>
-                                    <input name="keychain_quantity" id="quantity"
-                                        class="input-text @error('quantity') is-invalid @enderror"
-                                        value="{{ old('quantity') }}" type="text" placeholder="Quantity" required />
+                                    <input name="keychain_quantity" id="quantity" class="input-text @error('quantity') is-invalid @enderror" value="{{ old('quantity') }}" type="text" placeholder="Quantity" required />
                                     @error('quantity')
                                     <label class="label-error">{{ $message }}</label>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label class="input-label" for="value"> Value *</label>
-                                    <input name="keychain_value" id="value"
-                                        class="input-text @error('value') is-invalid @enderror"
-                                        value="{{ old('value') }}" type="text" placeholder="Order Value" required />
+                                    <input name="keychain_value" id="value" class="input-text @error('value') is-invalid @enderror" value="{{ old('value') }}" type="text" placeholder="Order Value" required />
                                     @error('value')
                                     <label class="label-error">{{ $message }}</label>
                                     @enderror
@@ -212,13 +192,13 @@
                                 <div class="form-group">
                                     <div class="custom-file-upload">
                                         <label class="input-label" for="file">Keychain Files</label>
-                                        <input type="file" id="keychain_files[]" name="keychain_files[]" multiple/>
+                                        <input type="file" id="keychain_files" name="keychain_files" multiple />
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                      <div id="medal_container" class="section-item">
+                        <div id="medal_container" class="section-item">
                             <h4></i>Medal</h4>
                             <hr class="hr-minor">
                             <div class="row">
@@ -235,18 +215,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="input-label" for="quantity">Quantity *</label>
-                                    <input name="medal_quantity" id="medal_quantity"
-                                        class="input-text @error('quantity') is-invalid @enderror"
-                                        value="{{ old('quantity') }}" type="text" placeholder="Quantity" required />
+                                    <input name="medal_quantity" id="medal_quantity" class="input-text @error('quantity') is-invalid @enderror" value="{{ old('quantity') }}" type="text" placeholder="Quantity" required />
                                     @error('quantity')
                                     <label class="label-error">{{ $message }}</label>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label class="input-label" for="value"> Value *</label>
-                                    <input name="medal_value" id="medal_value"
-                                        class="input-text @error('value') is-invalid @enderror"
-                                        value="{{ old('value') }}" type="text" placeholder="Order Value" required />
+                                    <input name="medal_value" id="medal_value" class="input-text @error('value') is-invalid @enderror" value="{{ old('value') }}" type="text" placeholder="Order Value" required />
                                     @error('value')
                                     <label class="label-error">{{ $message }}</label>
                                     @enderror
@@ -279,18 +255,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="input-label" for="quantity">Quantity *</label>
-                                    <input name="lanyard_quantity" id="quantity"
-                                        class="input-text @error('quantity') is-invalid @enderror"
-                                        value="{{ old('quantity') }}" type="text" placeholder="Quantity" required />
+                                    <input name="lanyard_quantity" id="quantity" class="input-text @error('quantity') is-invalid @enderror" value="{{ old('quantity') }}" type="text" placeholder="Quantity" required />
                                     @error('quantity')
                                     <label class="label-error">{{ $message }}</label>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label class="input-label" for="value"> Value *</label>
-                                    <input name="lanyard_value" id="value"
-                                        class="input-text @error('value') is-invalid @enderror"
-                                        value="{{ old('value') }}" type="text" placeholder="Order Value" required />
+                                    <input name="lanyard_value" id="value" class="input-text @error('value') is-invalid @enderror" value="{{ old('value') }}" type="text" placeholder="Order Value" required />
                                     @error('value')
                                     <label class="label-error">{{ $message }}</label>
                                     @enderror
@@ -323,18 +295,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="input-label" for="quantity">Quantity *</label>
-                                    <input name="custom_quantity" id="quantity"
-                                        class="input-text @error('quantity') is-invalid @enderror"
-                                        value="{{ old('quantity') }}" type="text" placeholder="Quantity" required />
+                                    <input name="custom_quantity" id="quantity" class="input-text @error('quantity') is-invalid @enderror" value="{{ old('quantity') }}" type="text" placeholder="Quantity" required />
                                     @error('quantity')
                                     <label class="label-error">{{ $message }}</label>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label class="input-label" for="value"> Value *</label>
-                                    <input name="custom_value" id="value"
-                                        class="input-text @error('value') is-invalid @enderror"
-                                        value="{{ old('value') }}" type="text" placeholder="Order Value" required />
+                                    <input name="custom_value" id="value" class="input-text @error('value') is-invalid @enderror" value="{{ old('value') }}" type="text" placeholder="Order Value" required />
                                     @error('value')
                                     <label class="label-error">{{ $message }}</label>
                                     @enderror
@@ -366,80 +334,92 @@
 @section('scripts')
 
 <script>
-
-
-function toggleSection(section) {
-    $(`#${section}`).toggleClass('section-active');
-}
-
-
-function ordersForm() {
-
-var formData = $("#orderForm").serializeArray();
-
-for (let key in formData) {
-    $(`#${formData[key].name}_error`).html('');
-    $(`#${formData[key].name}`).removeClass('is-invalid');
-}
-
-$.ajax({
-    url: "orderForms",
-    type: "POST",
-    data: formData,
-    success: function(response) {
-        console.log(response);
-        Notiflix.Report.Success(
-            'Success',
-            'Order succesful',
-            'Click');
-    },
-    error: function(error) {
-        var messages = error.responseJSON.msg;
-        for (let field in messages) {
-            $(`#${field}_error`).html(messages[field]);
-            $(`#${field}`).addClass('is-invalid');
-        }
-    }
-});
-
-}
-
-function checkExistingCustomer() {
-
-    let phone = $('#phone').val();
-    let formData = {
-        'phone': phone
+    function toggleSection(section) {
+        $(`#${section}`).toggleClass('section-active');
     }
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    $('#orderForm').on('submit', function(event) {
+        event.preventDefault();
+        var formData = $("#orderForm").serializeArray();
+        formData = [...formData, keychain_files];
+        console.log(formData);
+
+        for (let key in formData) {
+            $(`#${formData[key].name}_error`).html('');
+            $(`#${formData[key].name}`).removeClass('is-invalid');
         }
-    });
 
-    $.ajax({
-        type: 'POST',
-        data: formData,
-        url: 'getCustomerByPhone',
-        dataType: 'json',
-        success: function(response) {
-            console.log(response);
-            if (response.status === 'success') {
-                let customer = response.data;
-                if (customer === null) {
-                    $('#customer_status').html('New Customer');
-
-                } else {
-                    $('#customer_status').html('Existing Customer');
+        $.ajax({
+            url: "orderForms",
+            type: "POST",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(response) {
+                console.log(response);
+                Notiflix.Report.Success(
+                    'Success',
+                    'Order succesful',
+                    'Click');
+            },
+            error: function(error) {
+                var messages = error.responseJSON.msg;
+                for (let field in messages) {
+                    $(`#${field}_error`).html(messages[field]);
+                    $(`#${field}`).addClass('is-invalid');
                 }
             }
-        },
-        error: function(data) {
+        });
 
-        }
     });
 
-}
+
+    function ordersForm() {
+        let keychain_files = {
+            'name': 'keychain_files',
+            'value': document.getElementById('keychain_files').files
+        };
+       
+
+    }
+
+    function checkExistingCustomer() {
+
+        let phone = $('#phone').val();
+        let formData = {
+            'phone': phone
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            data: formData,
+            url: 'getCustomerByPhone',
+            dataType: 'json',
+            success: function(response) {
+                console.log(response);
+                if (response.status === 'success') {
+                    let customer = response.data;
+                    if (customer === null) {
+                        $('#customer_status').html('New Customer');
+
+                    } else {
+                        $('#customer_status').html('Existing Customer');
+                    }
+                }
+            },
+            error: function(data) {
+
+            }
+        });
+
+    }
 </script>
 
 @endsection
