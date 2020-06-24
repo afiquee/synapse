@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     protected $fillable = [
-        'type', 'shape', 'quantity', 'value', 'keyring', 'heatpress', 'fileupload',
+        'category','type', 'shape', 'quantity', 'value', 'keyring', 'heatpress', 'fileupload','created_by','order_id',
     ];
 
     protected $casts = [

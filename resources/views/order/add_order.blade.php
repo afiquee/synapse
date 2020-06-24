@@ -10,7 +10,7 @@
                     <h4 class="align-left">{{ __('New Order') }}</h4>
                 </div>
                 <div class="card-content">
-                    <form id="orderForm" method="POST" onsubmit="event.preventDefault(); ordersForm()">
+                    <form id="orderForm" method="POST" novalidate onsubmit="event.preventDefault(); ordersForm()" enctype="multipart/form-data">
                         @csrf
                         <h3><i class="fas fa-user"></i>Customer</h3>
                         <hr class="hr-major">
@@ -122,23 +122,23 @@
                         <div class="row cb-row justify-start">
                             <div class="cb-group">
                                 <input type="checkbox" onclick="toggleSection('keychain_container')"
-                                    name="keychain_toggle" class="input-checkbox">
+                                    name="keychain_toggle" id="keychain_toggle" value="keychain" class="input-checkbox">
                                 <label class="input-label" for="keychain_toggle">Keychain</label>
                             </div>
                             <div class="cb-group">
-                                <input type="checkbox" onclick="toggleSection('medal_container')" name="medal_toggle"
-                                    class="input-checkbox">
-                                <label class="input-label" for="medal_toggle">Medal</label>
+                                <input type="checkbox" onclick="toggleSection('medal_container')" 
+                                    name="medal_toggle" id="medal_toggle" value="medal" class="input-checkbox">
+                                <label class="input-label" name="medal_toggle" id="medal_toggle" value="medal_toggle" for="medal_toggle">Medal</label>
                             </div>
                             <div class="cb-group">
                                 <input type="checkbox" onclick="toggleSection('lanyard_container')"
-                                    name="lanyard_toggle" class="input-checkbox">
-                                <label class="input-label" for="lanyard_toggle">Lanyard</label>
+                                name="lanyard_toggle" id="lanyard_toggle" value="lanyard" class="input-checkbox">
+                                <label class="input-label" name="lanyard_toggle" id="lanyard_toggle" value="lanyard" for="lanyard_toggle">Lanyard</label>
                             </div>
                             <div class="cb-group">
-                                <input type="checkbox" onclick="toggleSection('custom_container')" name="custom_toggle"
+                                <input type="checkbox" onclick="toggleSection('custom_container')" name="custom_toggle" id="custom_toggle" value="custom"
                                     class="input-checkbox">
-                                <label class="input-label" for="custom_toggle">Custom</label>
+                                <label class="input-label" name="custom_toggle" id="custom_toggle" value="custom" for="custom_toggle">Custom</label>
                             </div>
                         </div>
 
@@ -148,21 +148,21 @@
                             <div class="row">
                                 <div class="form-group">
                                     <label class="input-label" for="type">Keychain Type</label>
-                                    <select id="type" name="type" class="input-select">
-                                        <option value="Production">4cm Kayu</option>
-                                        <option value="Production">4cm Acrylic</option>
-                                        <option value="Sales">4cm Warna</option>
+                                    <select id="type" name="keychain_type" class="input-select">
+                                        <option value="4cm Kayu">4cm Kayu</option>
+                                        <option value="4cm Acrylic">4cm Acrylic</option>
+                                        <option value="4cm Warna">4cm Warna</option>
                                     </select>
                                     @error('type')
                                     <label class="label-error">{{ $message }}</label>
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label class="input-label" for="type">Keychain Shape</label>
-                                    <select id="type" name="type" class="input-select">
-                                        <option value="Production">Bulat</option>
-                                        <option value="Production">Segi Empat</option>
-                                        <option value="Sales">Custo</option>
+                                    <label class="input-label" for="keychain_shape">Keychain Shape</label>
+                                    <select id="keychain_shape" name="keychain_shape" class="input-select">
+                                        <option value="Bulat">Bulat</option>
+                                        <option value="Segi Empat">Segi Empat</option>
+                                        <option value="Custo">Custo</option>
                                     </select>
                                     @error('type')
                                     <label class="label-error">{{ $message }}</label>
@@ -170,7 +170,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="input-label" for="quantity">Quantity *</label>
-                                    <input name="quantity" id="quantity"
+                                    <input name="keychain_quantity" id="quantity"
                                         class="input-text @error('quantity') is-invalid @enderror"
                                         value="{{ old('quantity') }}" type="text" placeholder="Quantity" required />
                                     @error('quantity')
@@ -179,7 +179,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="input-label" for="value"> Value *</label>
-                                    <input name="value" id="value"
+                                    <input name="keychain_value" id="value"
                                         class="input-text @error('value') is-invalid @enderror"
                                         value="{{ old('value') }}" type="text" placeholder="Order Value" required />
                                     @error('value')
@@ -208,26 +208,26 @@
                                     @enderror
                                 </div>
                             </div>
-                            <!-- <div class="row">
+                            <div class="row">
                                 <div class="form-group">
                                     <div class="custom-file-upload">
                                         <label class="input-label" for="file">Keychain Files</label>
-                                        <input type="file" id="keychain_files" name="keychain_files[]" multiple />
+                                        <input type="file" id="keychain_files[]" name="keychain_files[]" multiple/>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
 
-                        <!-- <div id="medal_container" class="section-item">
+                      <div id="medal_container" class="section-item">
                             <h4></i>Medal</h4>
                             <hr class="hr-minor">
                             <div class="row">
                                 <div class="form-group">
                                     <label class="input-label" for="type">Medal Type</label>
-                                    <select id="type" name="type" class="input-select">
-                                        <option value="Production">4cm Kayu</option>
-                                        <option value="Production">4cm Acrylic</option>
-                                        <option value="Sales">4cm Warna</option>
+                                    <select id="medal_type" name="medal_type" class="input-select">
+                                        <option value="4cm Kayu">4cm Kayu</option>
+                                        <option value="4cm Acrylic">4cm Acrylic</option>
+                                        <option value="4cm Warna">4cm Warna</option>
                                     </select>
                                     @error('type')
                                     <label class="label-error">{{ $message }}</label>
@@ -235,7 +235,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="input-label" for="quantity">Quantity *</label>
-                                    <input name="quantity" id="quantity"
+                                    <input name="medal_quantity" id="medal_quantity"
                                         class="input-text @error('quantity') is-invalid @enderror"
                                         value="{{ old('quantity') }}" type="text" placeholder="Quantity" required />
                                     @error('quantity')
@@ -244,7 +244,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="input-label" for="value"> Value *</label>
-                                    <input name="value" id="value"
+                                    <input name="medal_value" id="medal_value"
                                         class="input-text @error('value') is-invalid @enderror"
                                         value="{{ old('value') }}" type="text" placeholder="Order Value" required />
                                     @error('value')
@@ -252,14 +252,14 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="form-group">
                                     <div class="custom-file-upload">
                                         <label class="input-label" for="file">Medal Files</label>
                                         <input type="file" id="keychain_files" name="keychain_files[]" multiple />
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div id="lanyard_container" class="section-item">
@@ -268,10 +268,10 @@
                             <div class="row">
                                 <div class="form-group">
                                     <label class="input-label" for="type">Lanyard Type</label>
-                                    <select id="type" name="type" class="input-select">
-                                        <option value="Production">4cm Kayu</option>
-                                        <option value="Production">4cm Acrylic</option>
-                                        <option value="Sales">4cm Warna</option>
+                                    <select id="type" name="lanyard_type" class="input-select">
+                                        <option value="4cm Kayu">4cm Kayu</option>
+                                        <option value="4cm Acrylic">4cm Acrylic</option>
+                                        <option value="4cm Warna">4cm Warna</option>
                                     </select>
                                     @error('type')
                                     <label class="label-error">{{ $message }}</label>
@@ -279,7 +279,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="input-label" for="quantity">Quantity *</label>
-                                    <input name="quantity" id="quantity"
+                                    <input name="lanyard_quantity" id="quantity"
                                         class="input-text @error('quantity') is-invalid @enderror"
                                         value="{{ old('quantity') }}" type="text" placeholder="Quantity" required />
                                     @error('quantity')
@@ -288,7 +288,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="input-label" for="value"> Value *</label>
-                                    <input name="value" id="value"
+                                    <input name="lanyard_value" id="value"
                                         class="input-text @error('value') is-invalid @enderror"
                                         value="{{ old('value') }}" type="text" placeholder="Order Value" required />
                                     @error('value')
@@ -296,14 +296,14 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="form-group">
                                     <div class="custom-file-upload">
                                         <label class="input-label" for="file">Lanyard Files</label>
                                         <input type="file" id="keychain_files" name="keychain_files[]" multiple />
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div id="custom_container" class="section-item">
@@ -312,10 +312,10 @@
                             <div class="row">
                                 <div class="form-group">
                                     <label class="input-label" for="type">Lanyard Type</label>
-                                    <select id="type" name="type" class="input-select">
-                                        <option value="Production">4cm Kayu</option>
-                                        <option value="Production">4cm Acrylic</option>
-                                        <option value="Sales">4cm Warna</option>
+                                    <select id="custom_type" name="custom_type" class="input-select">
+                                        <option value="4cm Kayu">4cm Kayu</option>
+                                        <option value="4cm Acrylic">4cm Acrylic</option>
+                                        <option value="4cm Warna">4cm Warna</option>
                                     </select>
                                     @error('type')
                                     <label class="label-error">{{ $message }}</label>
@@ -323,7 +323,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="input-label" for="quantity">Quantity *</label>
-                                    <input name="quantity" id="quantity"
+                                    <input name="custom_quantity" id="quantity"
                                         class="input-text @error('quantity') is-invalid @enderror"
                                         value="{{ old('quantity') }}" type="text" placeholder="Quantity" required />
                                     @error('quantity')
@@ -332,7 +332,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="input-label" for="value"> Value *</label>
-                                    <input name="value" id="value"
+                                    <input name="custom_value" id="value"
                                         class="input-text @error('value') is-invalid @enderror"
                                         value="{{ old('value') }}" type="text" placeholder="Order Value" required />
                                     @error('value')
@@ -340,15 +340,15 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="form-group">
                                     <div class="custom-file-upload">
                                         <label class="input-label" for="file">Custom Files</label>
                                         <input type="file" id="keychain_files" name="keychain_files[]" multiple />
                                     </div>
                                 </div>
-                            </div>
-                        </div> -->
+                            </div> -->
+                        </div>
 
                         <div class="row">
                             <button type="submit" class="btn btn-green"> {{ __('Submit') }}</button>
