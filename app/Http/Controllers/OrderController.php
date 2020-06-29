@@ -92,7 +92,7 @@ class OrderController extends Controller
 
                 if ($request->hasFile('keychain_files')) {
                     $image = $request->file('keychain_files');
-                    $name = $customer->id . '.' . $image->getClientOriginalExtension();
+                    $name = $customer->id. time() . '.' . $image->getClientOriginalExtension();
                     $destinationPath = public_path('images/FU');
                     $image->move($destinationPath, $name);
                     Upload::Create([
@@ -178,7 +178,7 @@ class OrderController extends Controller
             ]);
             $order = Order::where('payment_type', $request->input('payment_type'))->first();
             if ($request->input("keychain_toggle") === "keychain") {
-                Item::Create([
+                $item_id = Item::insertGetId([
                     'order_id'               => $order->id,
                     'category'               => $request->input('keychain_toggle'),
                     'type'                   => $request->input('keychain_type'),
@@ -188,10 +188,25 @@ class OrderController extends Controller
                     'quantity'               => $request->input('keychain_quantity'),
                     'value'                  => $request->input('keychain_value'),
                     //'tracking_no'            => $request->input('trackingnumber'),
-                    // 'fileupload'             => $fileName,
+                    // 'fileupload'             => $name,
                     'created_by'             => $user_id,
                     'created_at'             => now(),
                 ]);
+
+                if ($request->hasFile('keychain_files')) {
+                    $image = $request->file('keychain_files');
+                    $name = $customer->id .time() . '.' . $image->getClientOriginalExtension();
+                    $destinationPath = public_path('images/FU');
+                    $image->move($destinationPath, $name);
+                    Upload::Create([
+                        'item_id'                => $item_id,
+                        'filename'               => $name,
+                        'location'               => $destinationPath . $name,
+                        'created_by'             => $user_id,
+                        'created_at'             => now(),
+                    ]);
+                    
+                }
             }
             if ($request->input("medal_toggle") === "medal") {
                 Item::Create([
