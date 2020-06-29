@@ -135,7 +135,6 @@ class UserController extends Controller
             ],
             $this->successCode);     
     }
-   
 
     public function viewAll() {
         $users = User::All();

@@ -50,8 +50,8 @@
                             class="fas fa-user-friends icon"></i>{{ __('User') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="{{ Route::currentRouteNamed('addOrder') ? 'nav-active' : '' }}"
-                        href="{{ route('addOrder') }}"><i class="fas fa-shopping-cart icon"></i>{{ __('Order') }}</a>
+                    <a class="{{ Route::currentRouteNamed('order') ? 'nav-active' : '' }}"
+                        href="{{ route('order') }}"><i class="fas fa-shopping-cart icon"></i>{{ __('Order') }}</a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();

@@ -23,21 +23,32 @@ Route::get('/dashboard', 'DashboardController@showDashboard')->name('dashboard')
 // dashboard
 
 // user 
-Route::get('/user', 'UserController@index')->name('user');
-Route::get('/profile', 'UserController@profile')->name('profile');
-Route::post('/Editprofile', 'UserController@editprofile')->name('Editprofile');
-Route::post('/registerUser', 'UserController@register')->name('registerUser');
-Route::POST('/updateUser', 'UserController@update')->name('updateUser');
-Route::post('/loginUser', 'UserController@login')->name('loginUser');
-Route::get('/viewAll', 'UserController@viewAll')->name('viewAll');
-Route::get('/deleteUser', 'UserController@delete')->name('deleteUser');
-
-
+Route::prefix("/user")->group(function () {
+    Route::group(
+        ["middleware" => ["admin"]],
+        function () {
+            Route::get('/', 'UserController@index')->name('user');
+            Route::post('/Editprofile', 'UserController@editprofile')->name('Editprofile');
+            Route::post('/registerUser', 'UserController@register')->name('registerUser');
+            Route::POST('/updateUser', 'UserController@update')->name('updateUser');
+            
+            Route::get('/viewAllUser', 'UserController@viewAll')->name('viewAllUser');
+            Route::get('/deleteUser', 'UserController@delete')->name('deleteUser');
+        }
+    );
+    Route::post('/loginUser', 'UserController@login')->name('loginUser');
+    Route::get('/profile', 'UserController@profile')->name('profile');
+    
+});
 
 //order
-Route::get('/order', 'OrderController@index')->name('order');
-Route::get('/addOrder', 'OrderController@addOrder')->name('addOrder');
-Route::post('/orderForms', 'OrderController@orderData')->name('orderForms');
+Route::prefix("/order")->group(function () {
+    Route::get('/', 'OrderController@index')->name('order');
+    Route::get('/update/{id}', 'OrderController@updateForm')->name('updateOrderForm');
+    Route::get('/viewAll', 'OrderController@viewAll')->name('viewAllOrder');
+    Route::get('/addOrder', 'OrderController@addOrder')->name('addOrder');
+    Route::post('/orderForms', 'OrderController@orderData')->name('orderForms');
+});
 
 //customer
 Route::post('/getCustomerByPhone', 'CustomerController@getCustomerByPhone')->name('getCustomerByPhone');
@@ -46,4 +57,3 @@ Route::post('/getCustomerByPhone', 'CustomerController@getCustomerByPhone')->nam
 
 
 Route::get('/home', 'HomeController@index')->name('home');
-

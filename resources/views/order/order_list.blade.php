@@ -2,51 +2,112 @@
 
 @section('content')
 <div class="containers">
-    <div class="cards">
-        <div class="cards-header">
-            <h4 class="align-left">{{ __('Users') }}</h4>
-            <button class="btn btn-green" data-id="#myModal" id="myBtn">Add User</button>
-        </div>
-        <div class="cards-content">
-            <div id="tableData">
+    <div class="row">
+        <div class="col-lg">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="align-left">{{ __('Users') }}</h4>
+                    <a href="{{ route('addOrder') }}" class="btn btn-green">Add Order</a>
+                </div>
+                <div class="card-content table-content">
+                    <div id="tableData">
 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
 
-<div id="myModal" class="modals">
+<div id="registerModal" class="modals">
     <div class="modals-container">
         <div class="modals-header">
             <h4 class="align-left">{{ __('Register User') }}</h4>
-            <span class="close">&times;</span>
+            <span onclick="closeModal('registerModal')" class="close">&times;</span>
         </div>
         <div class="modals-content">
-            <form method="POST">
-                <div class="rows">
-                    <label class="input-label" for="email">Email</label>
-                    <input name="email" id="email" class="input-text" value="{{ old('email') }}" type="text"
-                        placeholder="Email" required />
+            <form id="registerForm" method="POST" onsubmit="event.preventDefault(); registerUser()">
+                <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
+                <div class="forms-wrap">
+                    <div class="row">
+                        <div class="col">
+                            <label class="input-label" for="email">Email</label>
+                            <input name="email" id="email" class="input-text" value="{{ old('email') }}" type="text"
+                                placeholder="Email" required />
+                            <label id="email_error" class="label-error"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="input-label" for="name">Name</label>
+                            <input name="name" id="name" class="input-text" type="text" placeholder="Name" required />
+                            <label id="name_error" class="label-error"></label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="input-label" for="role">Role</label>
+                            <select id="role" name="role" class="input-select">
+                                <option value="Production">Production</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="submit" id="butsave" class="btn btn-green"> {{ __('Register') }}</button>
+                    </div>
                 </div>
-                <div class="rows">
-                    <label class="input-label" for="name">Name</label>
-                    <input name="name" id="name" class="input-text" type="text" placeholder="Name" required />
-                </div>
-                <div class="rows">
-                    <label class="input-label" for="role">Role</label>
-                    <select id="role" name="role" class="input-select">
-                        <option value="Production">Production</option>
-                        <option value="Sales">Sales</option>
-                        <option value="Admin">Admin</option>
-                    </select>
-                </div>
-                <div class="rows">
-                    <button type="submit" class="btn btn-green"> {{ __('Register') }}</button>
-                </div>
+
             </form>
         </div>
     </div>
 
+</div>
+
+<div id="updateModal" class="modals">
+    <div class="modals-container">
+        <div class="modals-header">
+            <h4 class="align-left">{{ __('Update User') }}</h4>
+            <span onclick="closeModal('updateModal')" class="close">&times;</span>
+        </div>
+        <div class="modals-content">
+            <form id="updateForm" method="POST" onsubmit="event.preventDefault(); updateUser()">
+                <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
+                <input type="hidden" name="u_id" id="u_id">
+                <div class="forms-wrap">
+                    <div class="row">
+                        <div class="col">
+                            <label class="input-label" for="email">Email</label>
+                            <input name="u_email" id="u_email" class="input-text" value="{{ old('email') }}" type="text"
+                                placeholder="Email" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="input-label" for="name">Name</label>
+                            <input name="u_name" id="u_name" class="input-text" type="text" placeholder="Name"
+                                required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="input-label" for="role">Role</label>
+                            <select id="u_role" name="u_role" class="input-select">
+                                <option value="Production">Production</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="submit" class="btn btn-green"> {{ __('Update User') }}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 @endsection
 
@@ -54,55 +115,133 @@
 @section('scripts')
 
 <script>
+function updateRow(obj) {
+
+    let id = $(obj).data('id');
+
+}
+
+function updateUser() {
+
+    var formData = $("#updateForm").serializeArray();
+
+    for (let key in formData) {
+        $(`#${formData[key].name}_error`).html('');
+        $(`#${formData[key].name}`).removeClass('is-invalid');
+    }
+
+    $.ajax({
+        url: "updateUser",
+        type: "POST",
+        data: formData,
+        success: function(response) {
+            console.log(response);
+            Notiflix.Report.Success(
+                'Success',
+                'User update succesful',
+                'Click');
+        },
+        error: function(error) {
+            var messages = error.responseJSON.msg;
+            for (let field in messages) {
+                $(`#${field}_error`).html(messages[field]);
+                $(`#${field}`).addClass('is-invalid');
+            }
+        }
+    });
+
+}
+
+function registerUser() {
+
+    var formData = $("#registerForm").serializeArray();
+
+    for (let key in formData) {
+        $(`#${formData[key].name}_error`).html('');
+        $(`#${formData[key].name}`).removeClass('is-invalid');
+    }
+
+    $.ajax({
+        url: 'registerUser',
+        type: 'POST',
+        data: formData,
+        success: function(response) {
+            Notiflix.Report.Success(
+                'Success',
+                'User registration succesful',
+                'Click');
+            closeModal('registerModal');
+        },
+        error: function(error) {
+            var messages = error.responseJSON.msg;
+            for (let field in messages) {
+                $(`#${field}_error`).html(messages[field]);
+                $(`#${field}`).addClass('is-invalid');
+            }
+        }
+    });
+
+}
+
+function deleteRow(obj) {
+
+    var del_id = $(obj).data('id');
+
+    Notiflix.Confirm.Show(
+        'Confirmation',
+        'Are you sure you want to delete?',
+        'Yes', 'No',
+        function() {
+            var id = del_id;
+            $.ajax({
+                url: "deleteUser",
+                type: "GET",
+                cache: false,
+                data: {
+                    id: id,
+                },
+                success: function(response) {
+                    location.reload();
+                }
+            });
+        },
+        function() {}
+    );
+
+}
+
 $(document).ready(function() {
-
-    
     $.ajaxSetup({
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } 
-    }); 
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
-    $.ajax({ 
-        type: 'GET', 
-        url: 'viewAll', 
-        dataType: 'json', 
-        success: function(response) { 
-            if(response.status === 'success') {
+    $.ajax({
+        type: 'GET',
+        url: 'order/viewAll',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 'success') {
                 let table = response.data;
                 $('#tableData').html(table);
-                var dataTable = $('#userTable').DataTable({});    
+                var dataTable = $('#userTable').DataTable({});
             }
-        }, error: function(data) { 
+        },
+        error: function(data) {}
+    });
 
-        } 
-    }); 
 });
 
-
-
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function(e) {
-    modal.style.display = "flex";
+function openModal(id) {
+    $(`#${id}`)
+        .css("display", "flex")
+        .hide()
+        .fadeIn();
 }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
+function closeModal(id) {
+    $(`#${id}`).fadeOut();
 }
 </script>
-
 @endsection
