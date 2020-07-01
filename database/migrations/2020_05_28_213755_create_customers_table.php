@@ -21,14 +21,14 @@ class CreateCustomersTable extends Migration
             $table->string('address')->nullable();
             $table->string('postcode')->nullable();
             $table->string('city')->nullable();
-            $table->foreignId('state_id')->constrained('states');
+            $table->foreignId('state_id')->nullable()->constrained('states');
             $table->string('active_status')->default('A');
             $table->timestamp('created_at')->nullable();
             $table->foreignId('created_by')->constrained('users');
             $table->timestamp('updated_at')->nullable();
-            $table->foreignId('updated_by')->constrained('users');
+            $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->timestamp('deleted_at')->nullable();
-            $table->foreignId('deleted_by')->constrained('users');
+            $table->foreignId('deleted_by')->nullable()->constrained('users');
         });
     }
 

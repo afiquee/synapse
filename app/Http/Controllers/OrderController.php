@@ -76,18 +76,16 @@ class OrderController extends Controller
             if ($request->input("keychain_toggle") === "keychain") {
 
                 $item_id = Item::insertGetId([
-                    'order_id'               => $order->id,
-                    'category'               => $request->input('keychain_toggle'),
-                    'type'                   => $request->input('keychain_type'),
-                    'keyring'                => $request->input('keyring'),
-                    'heatpress'              => $request->input('heatpress'),
-                    'shape'                  => $request->input('keychain_shape'),
-                    'quantity'               => $request->input('keychain_quantity'),
-                    'value'                  => $request->input('keychain_value'),
-                    //'tracking_no'            => $request->input('trackingnumber'),
-                    // 'fileupload'             => $name,
-                    'created_by'             => $user_id,
-                    'created_at'             => now(),
+                    'order_id'   => $order->id,
+                    'category'   => $request->input('keychain_toggle'),
+                    'type'       => $request->input('keychain_type'),
+                    'keyring'    => $request->input('keyring'),
+                    'heatpress'  => $request->input('heatpress'),
+                    'shape'      => $request->input('keychain_shape'),
+                    'quantity'   => $request->input('keychain_quantity'),
+                    'value'      => $request->input('keychain_value'),
+                    'created_by' => $user_id,
+                    'created_at' => now(),
                 ]);
 
                 if ($request->hasFile('keychain_files')) {
@@ -158,14 +156,15 @@ class OrderController extends Controller
             );
         } else {
             Customer::create([
-                'phone'               => $request->input('phone'),
-                'name'               => $request->input('name'),
-                'email'           => $request->input('email'),
-                'address'               => $request->input('address'),
-                'postcode'           => $request->input('postcode'),
-                'city'               => $request->input('city'),
-                'created_by'             => $user_id,
-                'created_at'             => now(),
+                'phone'      => $request->input('phone'),
+                'name'       => $request->input('name'),
+                'email'      => $request->input('email'),
+                'address'    => $request->input('address'),
+                'postcode'   => $request->input('postcode'),
+                'city'       => $request->input('city'),
+                'state_id'   => $request->input('state'),
+                'created_by' => $user_id,
+                'created_at' => now(),
             ]);
             $customer = Customer::where('phone', $request->input('phone'))->first();
             Order::Create([
