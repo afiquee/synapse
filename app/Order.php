@@ -11,6 +11,7 @@ class Order extends Model
     ];
 
     protected $casts = [
+        'deadline'   => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',

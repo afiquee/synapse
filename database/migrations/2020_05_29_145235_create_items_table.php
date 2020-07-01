@@ -15,7 +15,7 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->integer('order_id')->constrained('orders');
+            $table->foreignId('order_id')->constrained('orders');
             $table->string('category');
             $table->string('type')->nullable();
             $table->string('keyring')->nullable();
@@ -27,11 +27,11 @@ class CreateItemsTable extends Migration
             $table->string('fileupload')->nullable();
             $table->string('active_status')->default('A');
             $table->timestamp('created_at')->nullable();
-            $table->integer('created_by')->nullable()->constrained('users');
+            $table->foreignId('created_by')->constrained('users');
             $table->timestamp('updated_at')->nullable();
-            $table->integer('updated_by')->nullable()->constrained('users');
+            $table->foreignId('updated_by')->constrained('users');
             $table->timestamp('deleted_at')->nullable();
-            $table->integer('deleted_by')->nullable()->constrained('users');
+            $table->foreignId('deleted_by')->constrained('users');
         });
     }
 

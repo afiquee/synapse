@@ -231,7 +231,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: 'viewAll',
+        url: 'user/viewAll',
         dataType: 'json',
         success: function(response) {
             if (response.status === 'success') {
