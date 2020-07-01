@@ -143,7 +143,7 @@ function updateUser() {
     }
 
     $.ajax({
-        url: "updateUser",
+        url: "user/updateUser",
         type: "POST",
         data: formData,
         success: function(response) {
@@ -231,7 +231,7 @@ $(document).ready(function() {
 
     $.ajax({
         type: 'GET',
-        url: 'user/viewAll',
+        url: 'user/viewAllUser',
         dataType: 'json',
         success: function(response) {
             if (response.status === 'success') {
