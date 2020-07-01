@@ -22,7 +22,7 @@ Auth::routes();
 Route::get('/dashboard', 'DashboardController@showDashboard')->name('dashboard');
 // dashboard
 
-// user 
+// user
 Route::get('/user', 'UserController@index')->name('user');
 Route::get('/profile', 'UserController@profile')->name('profile');
 Route::post('/Editprofile', 'UserController@editprofile')->name('Editprofile');

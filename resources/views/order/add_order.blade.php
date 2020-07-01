@@ -192,7 +192,7 @@
                                 <div class="form-group">
                                     <div class="custom-file-upload">
                                         <label class="input-label" for="file">Keychain Files</label>
-                                        <input type="file" id="keychain_files" name="keychain_files" multiple />
+                                        <input type="file" id="keychain_files" name="keychain_files[]" multiple />
                                     </div>
                                 </div>
                             </div>
@@ -351,6 +351,7 @@
 
         $.ajax({
             url: "orderForms",
+            enctype: 'multipart/form-data',
             type: "POST",
             data: new FormData(this),
             contentType: false,
