@@ -66,15 +66,15 @@ class OrderController extends Controller
                 'created_by'             => $user_id,
                 'created_at'             => now(),
             ]);
+        }else{
+            $order_id = Order::insertGetId([
+                'customer_id'            => $customer->id,
+                'deadline'               => $request->input('deadline'),
+                'payment_type'           => $request->input('payment_type'),
+                'created_by'             => $user_id,
+                'created_at'             => now(),
+            ]);
         }
-
-        $order_id = Order::insertGetId([
-            'customer_id'            => $customer->id,
-            'deadline'               => $request->input('deadline'),
-            'payment_type'           => $request->input('payment_type'),
-            'created_by'             => $user_id,
-            'created_at'             => now(),
-        ]);
 
         if ($request->input("keychain_toggle") === "keychain") {
 
@@ -105,16 +105,13 @@ class OrderController extends Controller
                 ]);
             }
         }
-        if ($request->input("keychain_toggle") === "keychain") {
+        if ($request->input("medal_toggle") === "medal") {
             $item_id = Item::insertGetId([
                 'order_id'               => $order_id,
-                'category'               => $request->input('keychain_toggle'),
-                'type'                   => $request->input('keychain_type'),
-                'keyring'                => $request->input('keyring'),
-                'heatpress'              => $request->input('heatpress'),
-                'shape'                  => $request->input('keychain_shape'),
-                'quantity'               => $request->input('keychain_quantity'),
-                'value'                  => $request->input('keychain_value'),
+                'category'               => $request->input('medal_toggle'),
+                'type'                   => $request->input('medal_type'),
+                'quantity'               => $request->input('medal_quantity'),
+                'value'                  => $request->input('medal_value'),
                 'created_by'             => $user_id,
                 'created_at'             => now(),
             ]);
