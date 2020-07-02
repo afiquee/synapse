@@ -74,7 +74,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="input-label" for="state">State</label>
-                                <select id="type" name="type" class="input-select">
+                                <select id="state" name="state" class="input-select">
                                     <option value="">Select State</option>
                                     @foreach($states as $state)
                                     <option value="{{ $state->id }}">{{ $state->name }}</option>

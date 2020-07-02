@@ -7,9 +7,10 @@ use App\User;
 
 class Customer extends Model
 {
-    
+    public $timestamps = false;
+
     protected $fillable = [
-        'phone', 'name', 'email','address','postcode','city','state',
+        'phone', 'name', 'email','address','postcode','city','state_id','created_at','created_by'
     ];
 
     protected $casts = [

@@ -45,7 +45,7 @@ class OrderController extends Controller
 
         $user_id = Auth::user()->id;
         $customer = Customer::where('phone', $request->input('phone'))->first();
-        $cust_id = $customer->id;
+    
 
         if ($customer == null) {
 
@@ -59,16 +59,52 @@ class OrderController extends Controller
                 'created_by'             => $user_id,
                 'created_at'             => now(),
             ]);
+            $order_id = Order::insertGetId([
+                'customer_id'            => $cust_id,
+                'deadline'               => $request->input('deadline'),
+                'payment_type'           => $request->input('payment_type'),
+                'created_by'             => $user_id,
+                'created_at'             => now(),
+            ]);
         }
 
         $order_id = Order::insertGetId([
-            'customer_id'            => $cust_id,
+            'customer_id'            => $customer->id,
             'deadline'               => $request->input('deadline'),
             'payment_type'           => $request->input('payment_type'),
             'created_by'             => $user_id,
             'created_at'             => now(),
         ]);
 
+        if ($request->input("keychain_toggle") === "keychain") {
+
+            $item_id = Item::insertGetId([
+                'order_id'   => $order_id,
+                'category'   => $request->input('keychain_toggle'),
+                'type'       => $request->input('keychain_type'),
+                'keyring'    => $request->input('keyring'),
+                'heatpress'  => $request->input('heatpress'),
+                'shape'      => $request->input('keychain_shape'),
+                'quantity'   => $request->input('keychain_quantity'),
+                'value'      => $request->input('keychain_value'),
+                'created_by' => $user_id,
+                'created_at' => now(),
+            ]);
+
+            if ($request->hasFile('keychain_files')) {
+                $image = $request->file('keychain_files');
+                $name = $customer->id . time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('images/FU');
+                $image->move($destinationPath, $name);
+                Upload::Create([
+                    'item_id'                => $item_id,
+                    'filename'               => $name,
+                    'location'               => $destinationPath . $name,
+                    'created_by'             => $user_id,
+                    'created_at'             => now(),
+                ]);
+            }
+        }
         if ($request->input("keychain_toggle") === "keychain") {
             $item_id = Item::insertGetId([
                 'order_id'               => $order_id,
@@ -98,18 +134,6 @@ class OrderController extends Controller
             }
         }
 
-        if ($request->input("medal_toggle") === "medal") {
-            Item::Create([
-                'order_id'               => $order_id,
-                'category'               => $request->input('medal_toggle'),
-                'type'                   => $request->input('medal_type'),
-                'quantity'               => $request->input('medal_quantity'),
-                'value'                  => $request->input('medal_value'),
-                'created_by'             => $user_id,
-                'created_at'             => now(),
-            ]);
-        }
-
         if ($request->input("lanyard_toggle") === "lanyard") {
             Item::Create([
                 'order_id'               => $order_id,
@@ -133,13 +157,5 @@ class OrderController extends Controller
                 'created_at'             => now(),
             ]);
         }
-
-        return response()->json(
-            [
-                "status" => "success",
-                "msg" => "Register successful",
-            ],
-            $this->successCode
-        );
     }
 }

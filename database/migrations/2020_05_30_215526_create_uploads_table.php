@@ -22,9 +22,9 @@ class CreateUploadsTable extends Migration
             $table->timestamp('created_at')->nullable();
             $table->foreignId('created_by')->constrained('users');
             $table->timestamp('updated_at')->nullable();
-            $table->foreignId('updated_by')->constrained('users');
+            $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->timestamp('deleted_at')->nullable();
-            $table->foreignId('deleted_by')->constrained('users');
+            $table->foreignId('deleted_by')->nullable()->constrained('users');
         });
     }
 

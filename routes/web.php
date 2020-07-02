@@ -48,10 +48,11 @@ Route::prefix("/order")->group(function () {
     Route::get('/viewAll', 'OrderController@viewAll')->name('viewAllOrder');
     Route::get('/addOrder', 'OrderController@addOrder')->name('addOrder');
     Route::post('/orderForms', 'OrderController@orderData')->name('orderForms');
+    Route::post('/getCustomerByPhone', 'CustomerController@getCustomerByPhone')->name('getCustomerByPhone');
 });
 
 //customer
-Route::post('/getCustomerByPhone', 'CustomerController@getCustomerByPhone')->name('getCustomerByPhone');
+
 
 
 
