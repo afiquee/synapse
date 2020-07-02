@@ -90,44 +90,26 @@ class OrderController extends Controller
                 'created_by' => $user_id,
                 'created_at' => now(),
             ]);
+            
 
             if ($request->hasFile('keychain_files')) {
-                $image = $request->file('keychain_files');
-                $name = $customer->id . time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('images/FU');
-                $image->move($destinationPath, $name);
-                Upload::Create([
-                    'item_id'                => $item_id,
-                    'filename'               => $name,
-                    'location'               => $destinationPath . $name,
-                    'created_by'             => $user_id,
-                    'created_at'             => now(),
-                ]);
-            }
-        }
-        if ($request->input("medal_toggle") === "medal") {
-            $item_id = Item::insertGetId([
-                'order_id'               => $order_id,
-                'category'               => $request->input('medal_toggle'),
-                'type'                   => $request->input('medal_type'),
-                'quantity'               => $request->input('medal_quantity'),
-                'value'                  => $request->input('medal_value'),
-                'created_by'             => $user_id,
-                'created_at'             => now(),
-            ]);
+                $images = $request->file('keychain_files');
 
-            if ($request->hasFile('keychain_files')) {
-                $image = $request->file('keychain_files');
-                $name = $customer->id . time() . '.' . $image->getClientOriginalExtension();
-                $destinationPath = public_path('images/FU');
-                $image->move($destinationPath, $name);
-                Upload::Create([
-                    'item_id'                => $item_id,
-                    'filename'               => $name,
-                    'location'               => $destinationPath . $name,
-                    'created_by'             => $user_id,
-                    'created_at'             => now(),
-                ]);
+                foreach($images as $image) {
+                    $filename = $image->getClientOriginalName();
+                    $extension = $image->getClientOriginalExtension();
+                    $time = time();
+                    $name = "$filename $time.$extension";
+                    $destinationPath = public_path('images/FU');
+                    $image->move($destinationPath, $name);
+                    Upload::Create([
+                        'item_id'                => $item_id,
+                        'filename'               => $name,
+                        'location'               => $destinationPath . $name,
+                        'created_by'             => $user_id,
+                        'created_at'             => now(),
+                    ]);
+                }
             }
         }
 
