@@ -16,6 +16,4 @@ class Order extends Model
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
     ];
-
-    
 }

@@ -23,8 +23,6 @@ class CreateItemsTable extends Migration
             $table->string('shape')->nullable();
             $table->integer('quantity');
             $table->string('value');
-            $table->string('tracking_no')->nullable();
-            $table->string('fileupload')->nullable();
             $table->string('active_status')->default('A');
             $table->timestamp('created_at')->nullable();
             $table->foreignId('created_by')->constrained('users');
