@@ -192,7 +192,7 @@
                                 <div class="form-group">
                                     <div class="custom-file-upload">
                                         <label class="input-label" for="file">Keychain Files</label>
-                                        <input type="file" id="keychain_files" name="keychain_files" multiple />
+                                        <input type="file" id="keychain_files[]" name="keychain_files[]" multiple />
                                     </div>
                                 </div>
                             </div>
@@ -341,7 +341,7 @@
     $('#orderForm').on('submit', function(event) {
         event.preventDefault();
         var formData = $("#orderForm").serializeArray();
-        formData = [...formData, keychain_files];
+        //formData = [...formData, keychain_files[]];
         console.log(formData);
 
         for (let key in formData) {
