@@ -67,15 +67,15 @@ class OrderController extends Controller
                 'created_by'             => $user_id,
                 'created_at'             => now(),
             ]);
+        }else{
+            $order_id = Order::insertGetId([
+                'customer_id'            => $customer->id,
+                'deadline'               => $request->input('deadline'),
+                'payment_type'           => $request->input('payment_type'),
+                'created_by'             => $user_id,
+                'created_at'             => now(),
+            ]);
         }
-
-        $order_id = Order::insertGetId([
-            'customer_id'            => $customer->id,
-            'deadline'               => $request->input('deadline'),
-            'payment_type'           => $request->input('payment_type'),
-            'created_by'             => $user_id,
-            'created_at'             => now(),
-        ]);
 
         if ($request->input("keychain_toggle") === "keychain") {
 
