@@ -182,7 +182,6 @@
                                     <label class="input-label" for="type">Require Heatpress</label>
                                 </div>
                                 <div class="form-group">
-
                                     @error('type')
                                     <label class="label-error">{{ $message }}</label>
                                     @enderror
