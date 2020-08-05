@@ -26,6 +26,7 @@
     <script src="{{ asset('js/dataTables.min.js') }}"></script>
     <script src="https://kit.fontawesome.com/d45262bf36.js" crossorigin="anonymous"></script>
     <script src="{{ asset('js/notiflix.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 
 </head>
 

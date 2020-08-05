@@ -3,183 +3,31 @@
 @section('content')
 <div class="containers">
     <div class="row center">
-        <div class="col-sm">
+        <div class="col-lg">
             <div class="card">
                 <div class="card-header">
                     <h4 class="align-left">{{ __('Profile') }}</h4>
                 </div>
-                <div class="card-content table-content">
-                    <form id="profileForm" method="POST" onsubmit="event.preventDefault(); resetPass()">
-                        <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
-                        <div class="form-wrap">
-                            <div class="row">
-                                <div class="col">
-                                    <label class="input-label" for="planet">Old Password</label>
-                                    <input name="old_password" id="old_password"
-                                        class="input-text @if ($errors->any()) is-invalid  @endif"
-                                        value="{{ old('old_password') }}" type="text" placeholder="Old Password"
-                                        required />
-                                    @if ($errors->any())
-                                    <label class="label-error"> {{ $errors->first() }} </label>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label class="input-label">New Password</label>
-                                    <input name="password1" id="password1"
-                                        class="input-text  @if ($errors->any()) is-invalid  @endif" type="password"
-                                        placeholder="New Password" required />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label class="input-label">Confirm Password</label>
-                                    <input name="password2" id="password2"
-                                        class="input-text  @if ($errors->any()) is-invalid  @endif" type="password"
-                                        placeholder="Confirm Password" required />
-                                </div>
-                            </div>
-                            <div class="full-input">
-                                <button type="submit" id="resetpass" class="btn btn-green"> {{ __('Submit') }}</button>
-                            </div>
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col-sm">
+                            <canvas id="myChart"></canvas>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm">
+        <div class="col-lg">
             <div class="card">
                 <div class="card-header">
                     <h4 class="align-left">{{ __('Profile') }}</h4>
                 </div>
-                <div class="card-content table-content">
-                    <form id="profileForm" method="POST" onsubmit="event.preventDefault(); resetPass()">
-                        <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
-                        <div class="form-wrap">
-                            <div class="row">
-                                <div class="col">
-                                    <label class="input-label" for="planet">Old Password</label>
-                                    <input name="old_password" id="old_password"
-                                        class="input-text @if ($errors->any()) is-invalid  @endif"
-                                        value="{{ old('old_password') }}" type="text" placeholder="Old Password"
-                                        required />
-                                    @if ($errors->any())
-                                    <label class="label-error"> {{ $errors->first() }} </label>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label class="input-label">New Password</label>
-                                    <input name="password1" id="password1"
-                                        class="input-text  @if ($errors->any()) is-invalid  @endif" type="password"
-                                        placeholder="New Password" required />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label class="input-label">Confirm Password</label>
-                                    <input name="password2" id="password2"
-                                        class="input-text  @if ($errors->any()) is-invalid  @endif" type="password"
-                                        placeholder="Confirm Password" required />
-                                </div>
-                            </div>
-                            <div class="full-input">
-                                <button type="submit" id="resetpass" class="btn btn-green"> {{ __('Submit') }}</button>
-                            </div>
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col-sm">
+                            <canvas id="chart2"></canvas>
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="align-left">{{ __('Profile') }}</h4>
-                </div>
-                <div class="card-content table-content">
-                    <form id="profileForm" method="POST" onsubmit="event.preventDefault(); resetPass()">
-                        <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
-                        <div class="form-wrap">
-                            <div class="row">
-                                <div class="col">
-                                    <label class="input-label" for="planet">Old Password</label>
-                                    <input name="old_password" id="old_password"
-                                        class="input-text @if ($errors->any()) is-invalid  @endif"
-                                        value="{{ old('old_password') }}" type="text" placeholder="Old Password"
-                                        required />
-                                    @if ($errors->any())
-                                    <label class="label-error"> {{ $errors->first() }} </label>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label class="input-label">New Password</label>
-                                    <input name="password1" id="password1"
-                                        class="input-text  @if ($errors->any()) is-invalid  @endif" type="password"
-                                        placeholder="New Password" required />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label class="input-label">Confirm Password</label>
-                                    <input name="password2" id="password2"
-                                        class="input-text  @if ($errors->any()) is-invalid  @endif" type="password"
-                                        placeholder="Confirm Password" required />
-                                </div>
-                            </div>
-                            <div class="full-input">
-                                <button type="submit" id="resetpass" class="btn btn-green"> {{ __('Submit') }}</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="align-left">{{ __('Profile') }}</h4>
-                </div>
-                <div class="card-content table-content">
-                    <form id="profileForm" method="POST" onsubmit="event.preventDefault(); resetPass()">
-                        <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
-                        <div class="form-wrap">
-                            <div class="row">
-                                <div class="col">
-                                    <label class="input-label" for="planet">Old Password</label>
-                                    <input name="old_password" id="old_password"
-                                        class="input-text @if ($errors->any()) is-invalid  @endif"
-                                        value="{{ old('old_password') }}" type="text" placeholder="Old Password"
-                                        required />
-                                    @if ($errors->any())
-                                    <label class="label-error"> {{ $errors->first() }} </label>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label class="input-label">New Password</label>
-                                    <input name="password1" id="password1"
-                                        class="input-text  @if ($errors->any()) is-invalid  @endif" type="password"
-                                        placeholder="New Password" required />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label class="input-label">Confirm Password</label>
-                                    <input name="password2" id="password2"
-                                        class="input-text  @if ($errors->any()) is-invalid  @endif" type="password"
-                                        placeholder="Confirm Password" required />
-                                </div>
-                            </div>
-                            <div class="full-input">
-                                <button type="submit" id="resetpass" class="btn btn-green"> {{ __('Submit') }}</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -191,40 +39,83 @@
 @section('scripts')
 
 <script>
-$(document).ready(function() {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-});
-
-function resetPass() {
-    var formData = $("#profileForm").serializeArray();
-
-    for (let key in formData) {
-        $(`#${formData[key].name}_error`).html('');
-        $(`#${formData[key].name}`).removeClass('is-invalid');
-    }
-    $.ajax({
-        url: 'Editprofile',
-        type: 'POST',
-        data: formData,
-        success: function(response) {
-            Notiflix.Report.Success(
-                'Success',
-                'Password Change successful',
-                'Click');
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
         },
-        error: function(error) {
-            console.log(error);
-            var messages = error.responseJSON.msg;
-            for (let field in messages) {
-                $(`#${field}_error`).html(messages[field]);
-                $(`#${field}`).addClass('is-invalid');
+        options: {
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
             }
         }
     });
-}
+
+
+    var canvas2 = document.getElementById('chart2');
+    var myChart = new Chart(canvas2, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
 </script>
 @endsection

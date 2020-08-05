@@ -14,7 +14,7 @@
                         @csrf
                         <h3><i class="fas fa-user"></i>Customer</h3>
                         <hr class="hr-major">
-                        <div class="row">
+                        <div class="form-row">
                             <div class="form-group">
                                 <div class="row removePadding">
                                     <label class="input-label" for="phone">Phone Number *</label>
@@ -31,7 +31,7 @@
                                 <input name="isExisting" id="isExisting" type="text" style="visibility:hidden" />
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="form-row">
                             <div class="form-group">
                                 <label class="input-label" for="name">Full Name *</label>
                                 <input name="name" id="name" class="input-text @error('name') is-invalid @enderror" value="{{ old('name') }}" type="text" placeholder="Full Name" required />
@@ -47,7 +47,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="form-row">
                             <div class="form-group">
                                 <label class="input-label" for="address">Address</label>
                                 <input name="address" id="address" class="input-text @error('address') is-invalid @enderror" value="{{ old('address') }}" type="text" placeholder="Address" required />
@@ -56,8 +56,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="row">
-
+                        <div class="form-row">
                             <div class="form-group">
                                 <label class="input-label" for="postcode">Postcode</label>
                                 <input name="postcode" id="postcode" class="input-text @error('full_name') is-invalid @enderror" value="{{ old('postcode') }}" type="text" placeholder="Postcode" required />
@@ -84,7 +83,7 @@
                         </div>
                         <h3><i class="fas fa-shopping-cart"></i>Order</h3>
                         <hr class="hr-major">
-                        <div class="row">
+                        <div class="form-row">
                             <div class="form-group">
                                 <label class="input-label" for="deadline">Project Deadline *</label>
                                 <input name="deadline" id="deadline" class="input-text @error('deadline') is-invalid @enderror" value="{{ old('deadline') }}" type="date" placeholder="Project Deadline" required />
@@ -107,7 +106,7 @@
                         <h3><i class="fas fa-medal"></i>Item</h3>
                         <hr class="hr-major">
 
-                        <div class="row cb-row justify-start">
+                        <div class="form-row cb-row justify-start">
                             <div class="cb-group">
                                 <input type="checkbox" onclick="toggleSection('keychain_container')" name="keychain_toggle" id="keychain_toggle" value="keychain" class="input-checkbox">
                                 <label class="input-label" for="keychain_toggle">Keychain</label>
@@ -129,7 +128,7 @@
                         <div id="keychain_container" style="transition: all 0.2s ease-in;" class="section-item">
                             <h4></i>Keychain</h4>
                             <hr class="hr-minor">
-                            <div class="row">
+                            <div class="form-row">
                                 <div class="form-group">
                                     <label class="input-label" for="type">Keychain Type</label>
                                     <select id="type" name="keychain_type" class="input-select">
@@ -167,7 +166,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row cb-row">
+                            <div class="form-row cb-row">
                                 <div class="cb-group">
                                     <input type="checkbox" value="keyring" name="keyring" id="keyring" class="input-checkbox">
                                     <label class="input-label" for="type">Include Keyring</label>
@@ -187,7 +186,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="form-row">
                                 <div class="form-group">
                                     <div class="custom-file-upload">
                                         <label class="input-label" for="file">Keychain Files</label>
@@ -200,7 +199,7 @@
                         <div id="medal_container" class="section-item">
                             <h4></i>Medal</h4>
                             <hr class="hr-minor">
-                            <div class="row">
+                            <div class="form-row">
                                 <div class="form-group">
                                     <label class="input-label" for="type">Medal Type</label>
                                     <select id="medal_type" name="medal_type" class="input-select">
@@ -240,7 +239,7 @@
                         <div id="lanyard_container" class="section-item">
                             <h4></i>Lanyard</h4>
                             <hr class="hr-minor">
-                            <div class="row">
+                            <div class="form-row">
                                 <div class="form-group">
                                     <label class="input-label" for="type">Lanyard Type</label>
                                     <select id="type" name="lanyard_type" class="input-select">
@@ -280,7 +279,7 @@
                         <div id="custom_container" class="section-item">
                             <h4></i>Custom</h4>
                             <hr class="hr-minor">
-                            <div class="row">
+                            <div class="form-row">
                                 <div class="form-group">
                                     <label class="input-label" for="type">Lanyard Type</label>
                                     <select id="custom_type" name="custom_type" class="input-select">
@@ -380,7 +379,7 @@
             'name': 'keychain_files',
             'value': document.getElementById('keychain_files').files
         };
-       
+
 
     }
 

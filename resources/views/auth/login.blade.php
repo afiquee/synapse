@@ -31,8 +31,7 @@
                     <div class="card-content">
                         <form method="POST" action="{{ route('loginUser') }}">
                             @csrf
-                            <div class="form-wrap">
-                                <div class="row">
+                                <div class="form-row">
                                     <div class="form-group">
                                         <label class="input-label" for="planet">Email</label>
                                         <input name="email" id="email"
@@ -43,7 +42,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="form-row">
                                     <div class="form-group">
                                         <label class="input-label">Password</label>
                                         <input name="password" id="password"
@@ -56,7 +55,6 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
                 </div>
             </div>
         </div>

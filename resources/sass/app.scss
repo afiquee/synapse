@@ -389,12 +389,13 @@ html {
     }
     width: 80vw;
   }
-  .col-sm {
+
+  .col-md {
     @media only screen and (min-width: 1024px) {
-      max-width: 600px;
+      max-width: 700px;
     }
     @media only screen and (min-width: 768px) {
-      max-width: 500px;
+      max-width: 650px;
     }
     min-width: 300px;
     background-color: $testred;
@@ -403,7 +404,22 @@ html {
     flex: 1;
     flex-direction: row;
     justify-content: center;
+  }
 
+  .col-sm {
+    @media only screen and (min-width: 1024px) {
+      max-width: 600px;
+    }
+    @media only screen and (min-width: 768px) {
+      max-width: 500px;
+    }
+    min-width: 400px;
+    background-color: $testred;
+    padding: 1rem;
+    display:flex;
+    flex: 1;
+    flex-direction: row;
+    justify-content: center;
   }
 
   .always-row {
@@ -426,6 +442,18 @@ html {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    
+
+    @media only screen and (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  .form-row {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
     
 
     @media only screen and (max-width: 768px) {
