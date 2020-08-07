@@ -348,7 +348,7 @@
         }
 
         $.ajax({
-            url: "orderForms",
+            url: "addOrderData",
             enctype: 'multipart/form-data',
             type: "POST",
             data: new FormData(this),

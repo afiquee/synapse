@@ -41,12 +41,10 @@ class OrderController extends Controller
         return view('order.add_order')->with(compact('states'));
     }
 
-    public function orderData(Request $request)
+    public function addOrderData(Request $request)
     {
-
         $user_id = Auth::user()->id;
         $customer = Customer::where('phone', $request->input('phone'))->first();
-
 
         if ($customer == null) {
 
@@ -91,7 +89,6 @@ class OrderController extends Controller
                 'created_by' => $user_id,
                 'created_at' => now(),
             ]);
-
 
             if ($request->hasFile('keychain_files')) {
                 $images = $request->file('keychain_files');
@@ -171,7 +168,7 @@ class OrderController extends Controller
             $table    .= "<td>{$order->value}</td>";
             $table    .= "<td>{$order->deadline}</td>";
             $table    .= '<td><div class="">';
-            $table    .= "<a href='" . route('updateOrderForm', ['id' => $order->order_id]) . "' class'span-btn'><i class='fas fa-edit table-btn'></i></a>";
+            $table    .= "<a href='" . route('updateOrder', ['id' => $order->order_id]) . "' class'span-btn'><i class='fas fa-edit table-btn'></i></a>";
             $table    .= '<span id="deleteRowBtn" onclick="deleteRow(this)" data-id="' . $order->order_id . '" class="span-btn"><i class="fas fa-trash table-btn"></i></span>';
             $table    .= '</div>';
             $table    .= '</td>';
@@ -188,4 +185,14 @@ class OrderController extends Controller
             ]
         );
     }
+
+    public function updateOrder(Request $request) {
+        $id = $request->route('id');
+        $order = Order::where('id',$id);
+        $items = Order::where('order_id',$id);
+        $states = State::all();
+        return view('order.update_order')->with(compact('states', 'order', 'items'));
+    }
+
+
 }

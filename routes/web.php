@@ -47,7 +47,10 @@ Route::prefix("/order")->group(function () {
     Route::get('/update/{id}', 'OrderController@updateForm')->name('updateOrderForm');
     Route::get('/viewAll', 'OrderController@viewAll')->name('viewAllOrder');
     Route::get('/addOrder', 'OrderController@addOrder')->name('addOrder');
-    Route::post('/orderForms', 'OrderController@orderData')->name('orderForms');
+    Route::post('/addOrderData', 'OrderController@addOrderData')->name('addOrderData');
+    Route::get('/updateOrder', 'OrderController@updateOrder')->name('updateOrder');
+    Route::get('/updateOrderData', 'OrderController@updateOrderData')->name('updateOrderData');
+    Route::post('/searchCustomer', 'CustomerController@searchCustomer')->name('searchCustomer');
     Route::post('/getCustomerByPhone', 'CustomerController@getCustomerByPhone')->name('getCustomerByPhone');
 });
 
