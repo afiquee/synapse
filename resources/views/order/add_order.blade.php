@@ -16,7 +16,7 @@
                         <hr class="hr-major">
                         <div class="form-row">
                             <div class="form-group">
-                                <div class="row removePadding">
+                                <div class="form-row removePadding">
                                     <label class="input-label" for="phone">Phone Number *</label>
                                     <label id="customer_status" class="label-success"></label>
                                 </div>

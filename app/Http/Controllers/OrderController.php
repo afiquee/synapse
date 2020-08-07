@@ -136,13 +136,20 @@ class OrderController extends Controller
         }
     }
 
-    public function viewAll()
+    public function viewAll(Request $request)
     {
         $orders = DB::table('ORDERS AS O')
-            ->select('O.id as order_id', 'I.id as item_id', 'C.name as customer_name', 'deadline', 'category', 'value')
+            ->select('O.id as order_id', 'I.id as item_id', 'customer_id', 'C.name as customer_name', 'deadline', 'category', 'value')
             ->join("CUSTOMERS AS C", 'C.id', '=', 'O.customer_id')
-            ->join("ITEMS AS I", 'I.order_id', '=', 'O.id')
-            ->get();
+            ->join("ITEMS AS I", 'I.order_id', '=', 'O.id');
+        
+        if($request->input("customer_id")) 
+            $orders = $orders->where("customer_id","=",$request->input("customer_id"));
+            
+        if($request->input("category")) 
+            $orders = $orders->where("category","=",$request->input("category"));
+        
+        $orders = $orders->get();
 
         $table     = '<table id="userTable" class="table table-striped table-bordered" style="width:100%" style="width:100%">';
         $table    .= '<thead>';
@@ -159,6 +166,10 @@ class OrderController extends Controller
 
         $table    .= '<tbody>';
 
+        $customers = [];
+        $items = [];
+        $total_value = 0;
+
         foreach ($orders as $order) {
             $table    .= '<tr>';
             $table    .= "<td>{$order->order_id}</td>";
@@ -173,15 +184,27 @@ class OrderController extends Controller
             $table    .= '</div>';
             $table    .= '</td>';
             $table    .= '</tr>';
+
+            $customers[] = $order->customer_id;
+            $items[] = $order->item_id;
+            $total_value += $order->value;
         }
         $table    .= '</tbody>';
         $table    .= '</table>';
+
+        $data = [
+            "table" => $table,
+            "total_customer" => count(array_unique(($customers))),
+            "total_order" => sizeof($orders),
+            "total_item" => count(array_unique(($items))),
+            "total_value" => $total_value,
+        ];
 
         return response()->json(
             [
                 "status" => "success",
                 "msg" => "Get orders successful",
-                "data" => $table
+                "data" => $data
             ]
         );
     }

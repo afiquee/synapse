@@ -10,7 +10,7 @@
                     <h4 class="align-left">{{ __('Filter') }}</h4>
                 </div>
                 <div class="card-content">
-                    <form id="registerForm" method="POST" onsubmit="event.preventDefault(); registerUser()">
+                    <form id="filterForm" method="POST" onsubmit="event.preventDefault(); filterOrder()">
                         <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                         <div class="form-row">
                             <div class="form-group">
@@ -39,6 +39,41 @@
             </div>
         </div>
     </div>
+
+    <div class="row center">
+        <div class="col-xsm">
+            <div class="card">
+                <div class="card-content">
+                    <h2>Customers</h2>
+                    <h1 id="total_customer"></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-xsm">
+            <div class="card">
+                <div class="card-content">
+                    <h2>Orders</h2>
+                    <h1 id="total_order"></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-xsm">
+            <div class="card">
+                <div class="card-content">
+                    <h2>Items</h2>
+                    <h1 id="total_item"></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-xsm">
+            <div class="card">
+                <div class="card-content">
+                    <h2>Value</h2>
+                    <h1 id="total_value"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg">
             <div class="card">
@@ -63,38 +98,16 @@
 @section('scripts')
 
 <script>
-
-    const updateUser = () => {
-        var formData = $("#updateForm").serializeArray();
-        for (let key in formData) {
-            $(`#${formData[key].name}_error`).html('');
-            $(`#${formData[key].name}`).removeClass('is-invalid');
-        }
-        $.ajax({
-            url: "updateUser",
-            type: "POST",
-            data: formData,
-            success: function(response) {
-                console.log(response);
-                Notiflix.Report.Success(
-                    'Success',
-                    'User update succesful',
-                    'Click');
-            },
-            error: function(error) {
-                var messages = error.responseJSON.msg;
-                for (let field in messages) {
-                    $(`#${field}_error`).html(messages[field]);
-                    $(`#${field}`).addClass('is-invalid');
-                }
-            }
-        });
+    const filterOrder = () => {
+        let formData = $("#filterForm").serializeArray();
+        console.log(formData)
+        fetchData(formData)
     }
 
     const searchCustomer = () => {
         let formData = {};
         let customer = document.getElementById('customer').value;
-        if(customer.length == 0) {
+        if (customer.length == 0) {
             $('#customer_list').fadeOut();
             return;
         }
@@ -160,21 +173,29 @@
             }
         });
 
+        fetchData();
+    });
+
+    const fetchData = (formData = null) => {
         $.ajax({
-            type: 'GET',
+            type: 'POST',
+            data: formData,
             url: 'order/viewAll',
             dataType: 'json',
             success: function(response) {
                 if (response.status === 'success') {
-                    let table = response.data;
-                    $('#tableData').html(table);
-                    var dataTable = $('#userTable').DataTable({});
+                    let data = response.data;
+                    document.getElementById('tableData').innerHTML = data.table;
+                    document.getElementById('total_customer').innerHTML = data.total_customer;
+                    document.getElementById('total_order').innerHTML = data.total_order;
+                    document.getElementById('total_item').innerHTML = data.total_item;
+                    document.getElementById('total_value').innerHTML = `RM ${data.total_value}`;
+                    let dataTable = $('#userTable').DataTable({});
                 }
             },
             error: function(data) {}
         });
-
-    });
+    }
 
     const openModal = (id) => {
         $(`#${id}`)

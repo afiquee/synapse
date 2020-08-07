@@ -1021,6 +1021,28 @@ h4 {
   }
 }
 
+.col-xsm {
+  min-width: 250px;
+  background-color: none;
+  padding: 1rem;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+}
+
+@media only screen and (min-width: 1024px) {
+  .col-xsm {
+    max-width: 300px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .col-xsm {
+    max-width: 200px;
+  }
+}
+
 .always-row {
   align-content: center;
 }
